@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,7 +25,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-    <title>ÀÎÃµÀç´É´ëÇÐ±³ ÄÄÇ»ÅÍÁ¤º¸°ú</title>
+    <title>ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ ì»´í“¨í„°ì •ë³´ê³¼</title>
 </head>
 <body>
 <script>
@@ -37,134 +37,134 @@
 <div class="loading"></div>
     <div class="top">
             <div>
-                <a href="#">´ëÇÐ È¨ÆäÀÌÁö</a>
-                <a href="./pages/login.html">·Î±×ÀÎ</a>
+                <a href="#">ëŒ€í•™ í™ˆíŽ˜ì´ì§€</a>
+                <a href="./pages/login.html">ë¡œê·¸ì¸</a>
             </div>
     </div>
     <header>
         <a href="./main.html">
-            <img src="resource/img/header_logo.png" alt="ÇÐ±³·Î°í">
+            <img src="resource/img/header_logo.png" alt="í•™êµë¡œê³ ">
         </a>
         <nav>
-            <a href="pages/sub.html">ÇÐ°ú¼Ò°³</a>
-            <a href="pages/sub.html">±³À°°úÁ¤</a>
-            <a href="pages/sub.html">Á¹¾÷/Áø·Î</a>
-            <a href="pages/sub.html">Ä¿¹Â´ÏÆ¼</a>
+            <a href="pages/sub.html">í•™ê³¼ì†Œê°œ</a>
+            <a href="pages/sub.html">êµìœ¡ê³¼ì •</a>
+            <a href="pages/sub.html">ì¡¸ì—…/ì§„ë¡œ</a>
+            <a href="pages/sub.html">ì»¤ë®¤ë‹ˆí‹°</a>
         </nav>
     </header>
-        <!--µå·Ó´Ù¿î ³×ºñ°ÔÀÌ¼Ç ¿µ¿ª-->
+        <!--ë“œë¡­ë‹¤ìš´ ë„¤ë¹„ê²Œì´ì…˜ ì˜ì—­-->
         <div class="dropNavBackgroundMain">
-            <!--µå·Ó´Ù¿î ³×ºñ°ÔÀÌ¼Ç 1-->
+            <!--ë“œë¡­ë‹¤ìš´ ë„¤ë¹„ê²Œì´ì…˜ 1-->
             <div class="dropNavBackground1" id="dropdownNav1">
                 <ul>
                     <li>
-                        <a href="#">ÇÐ°ú¼Ò°³</a>
+                        <a href="#">í•™ê³¼ì†Œê°œ</a>
                     </li>
                     <li>
-                        <a href="#">±³¼ö¼Ò°³</a>
+                        <a href="#">êµìˆ˜ì†Œê°œ</a>
                     </li>
                     <li>
-                        <a href="#">½Ç½À½Ç¾È³»</a>
+                        <a href="#">ì‹¤ìŠµì‹¤ì•ˆë‚´</a>
                     </li>
                     <li>
-                        <a href="#">¿À½Ã´Â ±æ</a>
+                        <a href="#">ì˜¤ì‹œëŠ” ê¸¸</a>
                     </li>
                 </ul>
             </div>
-            <!--µå·Ó´Ù¿î ³×ºñ°ÔÀÌ¼Ç 2-->
+            <!--ë“œë¡­ë‹¤ìš´ ë„¤ë¹„ê²Œì´ì…˜ 2-->
             <div class="dropNavBackground2" id="dropdownNav2">
                 <ul>
                     <li>
-                        <a href="#">·Îµå¸Ê</a>
+                        <a href="#">ë¡œë“œë§µ</a>
                     </li>
                     <li>
-                        <a href="#">±³°ú¸ñ ¼Ò°³</a>
+                        <a href="#">êµê³¼ëª© ì†Œê°œ</a>
                     </li>
                 </ul>
             </div>
-            <!--µå·Ó´Ù¿î ³×ºñ°ÔÀÌ¼Ç 3-->
+            <!--ë“œë¡­ë‹¤ìš´ ë„¤ë¹„ê²Œì´ì…˜ 3-->
             <div class="dropNavBackground3" id="dropdownNav3">
                 <ul>
                     <li>
-                        <a href="#">ÇÐ°úSNS</a>
+                        <a href="#">í•™ê³¼SNS</a>
                     </li>
                     <li>
-                        <a href="#">ÇÐ»ýÈ¸ ÀÓ¿ø´Ü</a>
+                        <a href="#">í•™ìƒíšŒ ìž„ì›ë‹¨</a>
                     </li>
                     <li>
-                        <a href="#">ÇÐ°ú°øÁö</a>
+                        <a href="#">í•™ê³¼ê³µì§€</a>
                     </li>
                     <li>
-                        <a href="#">ÀÚ·á½Ç</a>
+                        <a href="#">ìžë£Œì‹¤</a>
                     </li>
                     <li>
-                        <a href="#">°¶·¯¸®</a>
+                        <a href="#">ê°¤ëŸ¬ë¦¬</a>
                     </li>
                 </ul>
             </div>
-            <!--µå·Ó´Ù¿î ³×ºñ°ÔÀÌ¼Ç 4-->
+            <!--ë“œë¡­ë‹¤ìš´ ë„¤ë¹„ê²Œì´ì…˜ 4-->
             <div class="dropNavBackground4" id="dropdownNav4">
                 <ul>
                     <li>
-                        <a href="#">Ãë¾÷ ÇöÈ²</a>
+                        <a href="#">ì·¨ì—… í˜„í™©</a>
                     </li>
                 </ul>
             </div>
         </div>
     <section class="banner">
         <div>
-            <!--¹è³Ê Å¸ÀÌÆ² ¿µ¿ª-->
+            <!--ë°°ë„ˆ íƒ€ì´í‹€ ì˜ì—­-->
             <div class="title">
-                <h3>Department of Computer & Information technology</h3>
-                <h1>ÄÄÇ»ÅÍÁ¤º¸°ú</h1>
-                <p>°­ÇÏ°í °æÀï·ÂÀÖ´Â ITÀÎÀç ¾ç¼ºÀÇ ¿ä¶÷<br>
-                ÀÎÃµÀç´É´ëÇÐ±³ AIÄÄÇ»ÅÍÁ¤º¸°ú</p>
+                <h3>Department of Computer &amp; Information technology</h3>
+                <h1>ì»´í“¨í„°ì •ë³´ê³¼</h1>
+                <p>ê°•í•˜ê³  ê²½ìŸë ¥ìžˆëŠ” ITì¸ìž¬ ì–‘ì„±ì˜ ìš”ëžŒ<br>
+                ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ AIì»´í“¨í„°ì •ë³´ê³¼</p>
             </div>
-            <!--Å° Æ÷ÀÎÆ® ¿µ¿ª-->
+            <!--í‚¤ í¬ì¸íŠ¸ ì˜ì—­-->
             <ol>
                 <li>
-                    <a><br>Àü¹®´ë ÃÖÃÊ<br>¼ÛµµÄ·ÆÛ½º</a>
+                    <a><br>ì „ë¬¸ëŒ€ ìµœì´ˆ<br>ì†¡ë„ìº í¼ìŠ¤</a>
                 </li>
                 <li>
-                    <a><br>AI&Bio<br>¼±µµ´ëÇÐ</a>
+                    <a><br>AI&amp;Bio<br>ì„ ë„ëŒ€í•™</a>
                 </li>
                 <li>
-                    <a><br>LINC »ç¾÷<br>¿¬¼Ó ¼±Á¤</a>
+                    <a><br>LINC ì‚¬ì—…<br>ì—°ì† ì„ ì •</a>
                 </li>
                 <li>
-                    <a><br>ÀÚÀ²°³¼±´ëÇÐ<br>Áö¼Ó ¼±Á¤</a>
+                    <a><br>ìžìœ¨ê°œì„ ëŒ€í•™<br>ì§€ì† ì„ ì •</a>
                 </li>
             </ol>
         </div>
-        <!--µ¿¿µ»ó ¹è°æ-->
+        <!--ë™ì˜ìƒ ë°°ê²½-->
         <video muted autoplay loop>
             <source src="resource/video/background-video.mp4" type="video/mp4">
         </video>
     </section>
-    <!--ÀÎÆ®·Î ÆäÀÌÁö-->
+    <!--ì¸íŠ¸ë¡œ íŽ˜ì´ì§€-->
     <section class="intro">
         <aside>
             <div class="cardTitle">
-                <a class="titleLeft" href="#">ÇÐ°ú °øÁö»çÇ×</a>
-                <a class="right" href="#">´õº¸±â +</a>
+                <a class="titleLeft" href="#">í•™ê³¼ ê³µì§€ì‚¬í•­</a>
+                <a class="right" href="#">ë”ë³´ê¸° +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">ÀÎÃµÀç´É´ëÇÐ±³ »êÇÐÇù·Â´Ü Á÷¿ø Ã¤¿ë °ø°í</a></th>
+                        <th class="title-ellipsis"><a href="#">ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ ì‚°í•™í˜‘ë ¥ë‹¨ ì§ì› ì±„ìš© ê³µê³ </a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">2023ÇÐ³âµµ ÀÔÇÐÀüÇü ½ÃÇà°èÈ¹ º¯°æ ¾È³»</a></th>
+                        <th class="title-ellipsis"><a href="#">2023í•™ë…„ë„ ìž…í•™ì „í˜• ì‹œí–‰ê³„íš ë³€ê²½ ì•ˆë‚´</a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">2022-1Â÷ ÇÐÄ¢°³Á¤½ÉÀÇ °ø°í</a></th>
+                        <th class="title-ellipsis"><a href="#">2022-1ì°¨ í•™ì¹™ê°œì •ì‹¬ì˜ ê³µê³ </a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">2024ÇÐ³âµµ ÀÎÃµÀç´É´ëÇÐ±³ ÀÔÇÐÀüÇü ¾È³»</a></th>
+                        <th class="title-ellipsis"><a href="#">2024í•™ë…„ë„ ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ ìž…í•™ì „í˜• ì•ˆë‚´</a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">ÇÐ»ý»ó´ã¼¾ÅÍ ÇÐ±âÁß ±³³» ±¹°¡±Ù·Î ÀåÇÐ»ý ¸ðÁý</a></th>
+                        <th class="title-ellipsis"><a href="#">í•™ìƒìƒë‹´ì„¼í„° í•™ê¸°ì¤‘ êµë‚´ êµ­ê°€ê·¼ë¡œ ìž¥í•™ìƒ ëª¨ì§‘</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -193,26 +193,26 @@
         </aside>
         <aside>
             <div class="cardTitle">
-                <a class="titleLeft" href="#">Ä¿¹Â´ÏÆ¼</a>
-                <a class="right" href="#">´õº¸±â +</a>
+                <a class="titleLeft" href="#">ì»¤ë®¤ë‹ˆí‹°</a>
+                <a class="right" href="#">ë”ë³´ê¸° +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">ÀÎÃµÀç´É´ëÇÐ±³ »êÇÐÇù·Â´Ü Á÷¿ø Ã¤¿ë °ø°í</a></th>
+                        <th class="title-ellipsis"><a href="#">ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ ì‚°í•™í˜‘ë ¥ë‹¨ ì§ì› ì±„ìš© ê³µê³ </a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">2023ÇÐ³âµµ ÀÔÇÐÀüÇü ½ÃÇà°èÈ¹ º¯°æ ¾È³»</a></th>
+                        <th class="title-ellipsis"><a href="#">2023í•™ë…„ë„ ìž…í•™ì „í˜• ì‹œí–‰ê³„íš ë³€ê²½ ì•ˆë‚´</a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">2022-1Â÷ ÇÐÄ¢°³Á¤½ÉÀÇ °ø°í</a></th>
+                        <th class="title-ellipsis"><a href="#">2022-1ì°¨ í•™ì¹™ê°œì •ì‹¬ì˜ ê³µê³ </a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">2024ÇÐ³âµµ ÀÎÃµÀç´É´ëÇÐ±³ ÀÔÇÐÀüÇü ¾È³»</a></th>
+                        <th class="title-ellipsis"><a href="#">2024í•™ë…„ë„ ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ ìž…í•™ì „í˜• ì•ˆë‚´</a></th>
                     </tr>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">ÇÐ»ý»ó´ã¼¾ÅÍ ÇÐ±âÁß ±³³» ±¹°¡±Ù·Î ÀåÇÐ»ý ¸ðÁý</a></th>
+                        <th class="title-ellipsis"><a href="#">í•™ìƒìƒë‹´ì„¼í„° í•™ê¸°ì¤‘ êµë‚´ êµ­ê°€ê·¼ë¡œ ìž¥í•™ìƒ ëª¨ì§‘</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -246,10 +246,10 @@
             <div>
                 <table>
                     <tr>
-                        <td><h2>ÀÎÃµÀç´É´ëÇÐ±³</h2></td>
+                        <td><h2>ì¸ì²œìž¬ëŠ¥ëŒ€í•™êµ</h2></td>
                     </tr>
                     <tr>
-                        <td>22573 ÀÎÃµ±¤¿ª½Ã µ¿±¸ Àç´É·Î 178</td>
+                        <td>22573 ì¸ì²œê´‘ì—­ì‹œ ë™êµ¬ ìž¬ëŠ¥ë¡œ 178</td>
                     </tr>
                     <tr>
                         <td>Tel: 032-890-7000</td>
@@ -264,10 +264,10 @@
             <div>
             <table>
                 <tr>
-                    <td><h2>¼Û¸²Ä·ÆÛ½º</h2></td>
+                    <td><h2>ì†¡ë¦¼ìº í¼ìŠ¤</h2></td>
                 </tr>
                 <tr>
-                    <td>22573 ÀÎÃµ±¤¿ª½Ã µ¿±¸ Àç´É·Î 178</td>
+                    <td>22573 ì¸ì²œê´‘ì—­ì‹œ ë™êµ¬ ìž¬ëŠ¥ë¡œ 178</td>
                 </tr>
                 <tr>
                     <td>Tel: 032-890-7000</td>
@@ -280,10 +280,10 @@
             <div>
             <table>
                 <tr>
-                    <td><h2>¼ÛµµÄ·ÆÛ½º</h2></td>
+                    <td><h2>ì†¡ë„ìº í¼ìŠ¤</h2></td>
                 </tr>
                 <tr>
-                    <td>21987 ÀÎÃµ±¤¿ª½Ã ¿¬¼ö±¸ ¼Ûµµµ¿ 196-1</td>
+                    <td>21987 ì¸ì²œê´‘ì—­ì‹œ ì—°ìˆ˜êµ¬ ì†¡ë„ë™ 196-1</td>
                 </tr>
                 <tr>
                     <td>Tel: 021-890-7000</td>
