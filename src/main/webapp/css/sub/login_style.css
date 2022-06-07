@@ -1,0 +1,56 @@
+@media (min-width: 1344px) and (max-width: 1920px) {
+    .fullPage {
+        height: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login {
+        padding: 100px;
+        background-color: #ffffff;
+        display: inline-block;
+    }
+
+    .loginForm {
+        width: 95%;
+        display: flex;
+    }
+
+    .userInput {
+        width: 90%;
+    }
+
+    .id {
+        border: 1px solid #C4C4C4;
+        width: 90%;
+        margin: 0 0 10px 0;
+        padding: 10px;
+    }
+
+    .pwd {
+        border: 1px solid #C4C4C4;
+        width: 90%;
+        padding: 10px;
+    }
+
+    .loginBtn {
+        margin: 0 0 0 10px;
+        width: 30%;
+        background: #E06E37;
+        color: white;
+        font-weight: bold;
+        border: 0;
+    }
+
+    .under {
+        margin: 40px 0 0 0;
+        text-align: center;
+    }
+
+    .under > a {
+        margin: 0 20px 0 20px;
+    }
+
+
+}
