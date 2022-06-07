@@ -1,0 +1,207 @@
+@media screen and (min-width: 0px) and (max-width: 331px) {
+    ul, ol {
+        display: none;
+    }
+
+    nav {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 331px) and (max-width: 768px) {
+    ul, ol {
+        display: none;
+    }
+
+    nav {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 980px) {
+    ul, ol {
+        display: none;
+    }
+
+    nav {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 980px) and (max-width: 1344px) {
+    ul, ol {
+        margin: 0;
+        padding: 0;
+        font-size: 14pt;
+    }
+
+    nav {
+        padding: 40px 15% 0 0;
+        float: right;
+    }
+
+    nav > a {
+        font-family: "NanumSquareEB", sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        margin: 0 0 0 40px;
+    }
+
+    /* nav 호버 시 밑줄 */
+    nav > a:hover {
+        border-bottom: 1.5px solid #000000;
+    }
+
+    .dropNavBackgroundMain {
+        font-family: "NanumSquareR", sans-serif;
+        right: 13%;
+        width: 530px;
+        height: 300px;
+        position: absolute;
+    }
+
+    .dropNavBackgroundMain > div > ul {
+        text-align: center;
+        text-decoration: none;
+    }
+
+    /* 드롭다운 네비게이션 자간 조절 */
+    .dropNavBackgroundMain > div > ul > li {
+        list-style: none;
+        line-height: 40px;
+    }
+
+    .dropNavBackgroundMain > div > ul > li:hover > a {
+        display: block;
+        background: #f2f2f2;
+    }
+    /* 드롭네비 마진 값 수정으로 자기 드롭 위치에 딱 맞게 내려오게 수정(해상도에 따라 약간 변함) */
+    /*네비게이션 1번째 a*/
+    .dropNavBackground1 {
+        margin: 0 0 0 15px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+
+    /*네비게이션 2번째 a*/
+    .dropNavBackground2 {
+        margin: 0 0 0 130px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+
+    /*네비게이션 3번째 a*/
+    .dropNavBackground3 {
+        margin: 0 0 0 252px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+
+    /*네비게이션 4번째 a*/
+    .dropNavBackground4 {
+        margin: 0 0 0 372px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+}
+
+@media screen and (min-width: 1344px) and (max-width: 1920px) {
+    ul, ol {
+        margin: 0;
+        padding: 0;
+        font-size: 14pt;
+    }
+
+    nav {
+        padding: 40px 15% 0 0;
+        float: right;
+    }
+
+    nav > a {
+        font-family: "NanumSquareEB", sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        margin: 0 0 0 40px;
+    }
+
+    /* nav 호버 시 밑줄 */
+    nav > a:hover {
+        border-bottom: 1.5px solid #000000;
+    }
+
+    .dropNavBackgroundMain {
+        font-family: "NanumSquareR", sans-serif;
+        right: 13%;
+        width: 530px;
+        height: 300px;
+        position: absolute;
+    }
+
+    .dropNavBackgroundMain > div > ul {
+        text-align: center;
+        text-decoration: none;
+    }
+
+    /* 드롭다운 네비게이션 자간 조절 */
+    .dropNavBackgroundMain > div > ul > li {
+        list-style: none;
+        line-height: 40px;
+    }
+
+    .dropNavBackgroundMain > div > ul > li:hover > a {
+        display: block;
+        background: #f2f2f2;
+    }
+
+    /*네비게이션 1번째 a*/
+    .dropNavBackground1 {
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+
+    /*네비게이션 2번째 a*/
+    .dropNavBackground2 {
+        margin: 0 0 0 120px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+
+    /*네비게이션 3번째 a*/
+    .dropNavBackground3 {
+        margin: 0 0 0 240px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+
+    /*네비게이션 4번째 a*/
+    .dropNavBackground4 {
+        margin: 0 0 0 360px;
+        width: 200px;
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 10000;
+    }
+}
+
