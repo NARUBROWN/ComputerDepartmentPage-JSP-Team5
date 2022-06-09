@@ -23,8 +23,6 @@
 	%>
 	<tr> 
 		<td><%=lists.get(i).getNo_title()%></td>
-		<td><%=lists.get(i).getNo_author()%></td>
-		<td><%=lists.get(i).getNo_content()%></td>
 		<td><%=lists.get(i).getNo_date()%></td>
 	</tr>
 	<%

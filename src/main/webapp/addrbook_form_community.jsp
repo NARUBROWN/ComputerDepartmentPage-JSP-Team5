@@ -13,23 +13,23 @@
 	<br>
 	
 	<form name="form1" method="POST" action="addrbook_control.jsp">
-	<input type="hidden" name="action" value="notice-insert">
+	<input type="hidden" name="action" value="commnuity-insert">
 		<table>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="no_title"></td>
+				<td><input type="text" name="co_title"></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="no_author"></td>
+				<td><input type="text" name="co_author"></td>
 			</tr>
 			<tr>
 				<th>글 본문</th>
-				<td><input type="text" name="no_content"></td>
+				<td><input type="text" name="co_content"></td>
 			</tr>
 			<tr>
 				<th>날짜</th>
-				<td><input type="date" name="no_date"></td>
+				<td><input type="date" name="co_date"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="저장"><input type="reset" value="취소"></td>
