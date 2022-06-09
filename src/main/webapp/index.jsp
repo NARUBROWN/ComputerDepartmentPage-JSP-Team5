@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
+    
+ <%@ page import="mainPage.mainDAO" %>
+ <%@ page import="notice.noticeDTO" %>
+ <%@ page import="community.communityDTO" %>
+ <%@ page import="java.util.ArrayList" %>
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -151,42 +157,32 @@
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
+                    <%
+						mainDAO maintitle = new mainDAO();
+						ArrayList<noticeDTO> title_lists = maintitle.getMainPageNoticeList();
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">인천재능대학교 산학협력단 직원 채용 공고</a></th>
+                        <th class="title-ellipsis"><a href="#"><%=title_lists.get(i).getNo_title()%></a></th>
                     </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2023학년도 입학전형 시행계획 변경 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2022-1차 학칙개정심의 공고</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2024학년도 인천재능대학교 입학전형 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">학생상담센터 학기중 교내 국가근로 장학생 모집</a></th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
             <div class="dateArea">
                 <table>
                     <tbody>
+                    <%
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th class="date-th">2022/05/17</th>
+                        <th><%=title_lists.get(i).getNo_date().replace("-", "/")%></th>
                     </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
@@ -199,42 +195,31 @@
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
+                    <%
+						ArrayList<communityDTO> date_lists = maintitle.getMainPagecommunityList();
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">인천재능대학교 산학협력단 직원 채용 공고</a></th>
+                        <th class="title-ellipsis"><a href="#"><%=date_lists.get(i).getCo_title()%></a></th>
                     </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2023학년도 입학전형 시행계획 변경 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2022-1차 학칙개정심의 공고</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2024학년도 인천재능대학교 입학전형 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">학생상담센터 학기중 교내 국가근로 장학생 모집</a></th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
             <div class="dateArea">
                 <table>
                     <tbody>
+                    <%
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th>2022/05/17</th>
+                        <th><%=date_lists.get(i).getCo_date().replace("-", "/")%></th>
                     </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
