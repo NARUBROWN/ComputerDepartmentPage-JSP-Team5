@@ -12,7 +12,8 @@
         overflow: hidden;
         margin: 0 auto;
         object-fit: cover;
-        transition: all 2s ease-in-out .1s
+        transition: all 2s ease-in-out .1s;
+       
     }
 
     .banner > div {
