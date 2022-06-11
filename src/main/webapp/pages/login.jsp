@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,10 +45,10 @@
     </header>
     <section class="fullPage">
         <div class="login">
-        <form class="loginForm" action="#" method="POST">
+        <form class="loginForm" action="../action/loginAction.jsp" method="POST">
             <div class="userInput">
-            <label><input class="id" type="text" name="id" placeholder="아이디"></label><br>
-            <label><input class="pwd" type="password" name="password" placeholder="비밀번호"></label><br>
+            <label><input class="id" type="text" name="userID" placeholder="아이디"></label><br>
+            <label><input class="pwd" type="password" name="userPassword" placeholder="비밀번호"></label><br>
             </div>
             <input class="loginBtn" type="submit" value="로그인">
         </form>

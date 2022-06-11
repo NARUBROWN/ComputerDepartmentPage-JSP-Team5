@@ -17,9 +17,9 @@ public class mainDAO {
 	ResultSet rs = null;
 	
 	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-	String jdbc_url = "jdbc:mysql://localhost:3306/jspteam5?useUnicode=true&characterEncoding=utf8";
+	String jdbc_url = "jdbc:mysql://localhost:3306/jsp?useUnicode=true&characterEncoding=utf8";
 	String id = "root";
-	String passwd = "1q2w3e4r!";
+	String passwd = "1234";
 	
 	void connect() {
 		try {

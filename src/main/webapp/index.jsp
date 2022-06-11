@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
-    
  <%@ page import="mainPage.mainDAO" %>
  <%@ page import="notice.noticeDTO" %>
  <%@ page import="community.communityDTO" %>
  <%@ page import="java.util.ArrayList" %>
+ <%@ page import="java.io.PrintWriter" %>
  
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,8 +43,18 @@
 <div class="loading"></div>
     <div class="top">
             <div>
-                <a href="#">대학 홈페이지</a>
-                <a href="./pages/login.html">로그인</a>
+            <%
+	String loginCheck=(String)session.getAttribute("userID");
+	if(loginCheck != null) {
+			%>
+                <a href="#">회원정보 수정</a>
+                <a href="./action/logoutAction.jsp">로그아웃</a>
+        	<% } else {
+			%>	
+				<a href="./pages/login.jsp">로그인</a>
+				<a href="#">대학 홈페이지</a>
+			<%	}
+			%>
             </div>
     </div>
     <header>
