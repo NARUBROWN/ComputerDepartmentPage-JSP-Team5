@@ -1,0 +1,103 @@
+body{
+    margin: 0 auto;
+}
+.notice_table{
+    width: 40%;
+    height: 60%;
+    padding: 50px;
+    margin: 60px auto;
+    border-radius: 5px;
+    /* box-shadow: 2px 2px 8px #8e8e8e; */
+}
+.notice_table > h2{
+    margin: 0 auto;
+    text-align: center;
+}
+.notice_table > h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 0px;
+    padding-top: 40px;
+    border-bottom: 3px solid #ccc;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+.notice_table > form > ul{
+    margin: 0 0 30px 0; padding: 0; list-style: none;
+}
+.notice_table > form > ul li:after{
+    content: ''; display: block; visibility: hidden; clear: both;
+}
+.notice_table > form > ul li:first-child{
+    /* background: #eeebeb; */
+    border-top: 2px solid #2F2F2F;
+}
+.notice_table > form > ul li{
+    border-bottom: 0.5px solid lightgray;
+}
+.notice_table > form > ul li span{
+    display: block; float: left; padding: 15px 2%; font-size: 14px;
+    color: #2F2F2F;; text-transform: capitalize; box-sizing: border-box;
+}
+.notice_table > form > ul li span:first-child{
+    width: 100px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.font_head input{
+    display: block;
+    width: 470px;
+    height: 30px;
+    border: solid 1px #dadada;
+    padding: 10px 14px 10px 14px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: #fff;
+}
+.notice_writer input{
+    display: block;
+    width: 470px;
+    height: 30px;
+    border: solid 1px #dadada;
+    padding: 10px 14px 10px 14px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: #fff;
+}
+.notice_content textarea{
+    display: block;
+    width: 470px;
+    height: 150px;
+    border: solid 1px #dadada;
+    padding: 10px 14px 10px 14px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: #fff;
+}
+.write_notice input[type='submit']{
+    width: 130px;
+    float: left;
+    background: #8e8e8e;
+    color: #fff;
+    padding: 10px 23px;
+    border: 2px solid #8e8e8e;
+}
+.write_notice input[type='submit']:hover{
+    background: whitesmoke;
+    color: #000;
+    transition: 0.5s;
+}
+.move_notice{
+    width: 30px;
+    float: right;
+    background: #8e8e8e;
+    color: #fff;
+    padding: 10px 33px;
+    border: 2px solid #8e8e8e;
+}
+.move_notice:hover{
+    background: whitesmoke;
+    color: #000;
+    transition: 0.5s;
+}
