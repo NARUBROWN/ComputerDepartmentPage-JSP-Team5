@@ -34,6 +34,14 @@
     <title>인천재능대학교 컴퓨터정보과</title>
 </head>
 <body>
+<script>
+    $(window).on('load', function(){
+        $(".loading").fadeOut(1000);
+    });
+</script>
+
+<div class="loading"></div>
+
 <jsp:include page="/components/topbar.jsp"></jsp:include>
 <jsp:include page="/components/header.jsp"></jsp:include>
  
