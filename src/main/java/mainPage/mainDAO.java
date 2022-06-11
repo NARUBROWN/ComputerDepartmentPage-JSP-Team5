@@ -1,7 +1,6 @@
 package mainPage;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,51 +8,20 @@ import java.util.ArrayList;
 
 import notice.noticeDTO;
 import community.communityDTO;
+import jdbc_mysql.JDBCUtil;
 
 public class mainDAO {
 	
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-	String jdbc_url = "jdbc:mysql://localhost:3306/jspteam5?useUnicode=true&characterEncoding=utf8";
-	String id = "root";
-	String passwd = "1q2w3e4r!";
-	
-	void connect() {
-		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(jdbc_url, id, passwd);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	void disconnect() {
-		if(pstmt != null) {
-			try {
-				pstmt.close();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if(conn != null) {
-			try {
-				conn.close();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 	
 	public boolean noticeInsertDB(noticeDTO noticedto) {
-		connect();
 		
 		String sql = "insert into notice(no_title,no_date,no_author,no_content) values(?,?,?,?)";
 		
 		try {
+			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,noticedto.getNo_title());
 			pstmt.setString(2,noticedto.getNo_date());
@@ -65,18 +33,18 @@ public class mainDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			disconnect();
+			JDBCUtil.close(pstmt, conn);
 		}
 		return true;
 		
 	}
 	
 	public boolean communityInsertDB(communityDTO communitydto) {
-		connect();
 		
 		String sql = "insert into community(co_title,co_date,co_author,co_content) values(?,?,?,?)";
 		
 		try {
+			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,communitydto.getCo_title());
 			pstmt.setString(2,communitydto.getCo_date());
@@ -88,7 +56,7 @@ public class mainDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			disconnect();
+			JDBCUtil.close(pstmt, conn);
 		}
 		return true;
 		
@@ -97,12 +65,12 @@ public class mainDAO {
 	
 	// 제네릭에 DTO 추가해야함
 	public ArrayList<noticeDTO> getMainPageNoticeList() throws SQLException {
-		connect();
 		
 		String sql = "select * from notice order by no_id desc";
 		ArrayList<noticeDTO> lists = new ArrayList<noticeDTO>();
 		
 		try {
+			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -121,19 +89,19 @@ public class mainDAO {
 			
 		} finally {
 			rs.close();
-			disconnect();
+			JDBCUtil.close(rs, pstmt, conn);
 		}
 		
 		return lists;
 	}
 	
 	public ArrayList<communityDTO> getMainPagecommunityList() throws SQLException {
-		connect();
 		
 		String sql = "select * from community order by co_id desc";
 		ArrayList<communityDTO> lists = new ArrayList<communityDTO>();
 		
 		try {
+			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -152,7 +120,7 @@ public class mainDAO {
 			
 		} finally {
 			rs.close();
-			disconnect();
+			JDBCUtil.close(rs, pstmt, conn);
 		}
 		
 		return lists;
