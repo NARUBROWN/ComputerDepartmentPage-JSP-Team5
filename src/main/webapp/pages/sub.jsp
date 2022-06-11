@@ -31,6 +31,7 @@
 <body>
     <jsp:include page="/components/topbar.jsp"></jsp:include>
 	<jsp:include page="/components/header.jsp"></jsp:include>
+	
             <!-- 회원가입 -->
             <div id="wrapper">
                 <div id="content">
@@ -95,10 +96,8 @@
                         </span>
                     </div>
 
-                    <div class="btn_area">
-                        <button type="button" id="btnJoin">
-                            <span>가입하기</span>
-                        </button>
+                    <div class="btnJoin">
+                        <input type="submit" value="가입하기">
                     </div>
                 </div> 
             </div>

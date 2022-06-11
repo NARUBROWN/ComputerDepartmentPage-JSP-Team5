@@ -7,10 +7,10 @@
             <img src="${pageContext.request.contextPath}/resource/img/header_logo.png" alt="학교로고">
         </a>
         <nav>
-            <a href="${pageContext.request.contextPath}/pages/sub.jsp">학과소개</a>
-            <a href="${pageContext.request.contextPath}/pages/sub.jsp">교육과정</a>
-            <a href="${pageContext.request.contextPath}/pages/sub.jsp">졸업/진로</a>
-            <a href="${pageContext.request.contextPath}/pages/sub.jsp">재능광장</a>
+            <a href="#">학과소개</a>
+            <a href="#">교육과정</a>
+            <a href="#">졸업/진로</a>
+            <a href="${pageContext.request.contextPath}/pages/notice.jsp">재능광장</a>
         </nav>
     </header>
         <!--드롭다운 네비게이션 영역-->
@@ -67,7 +67,7 @@
             <div class="dropNavBackground4" id="dropdownNav4">
                 <ul>
                     <li>
-                        <a href="#">커뮤니티</a>
+                        <a href="${pageContext.request.contextPath}/pages/notice.jsp">커뮤니티</a>
                     </li>
                 </ul>
             </div>
