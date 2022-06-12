@@ -102,7 +102,7 @@
             </ol>
         </div>
         <div class="write_notice">
-            <a href="notice_content_form.jsp">글쓰기</a>
+            <a href="form.jsp?type=community">글쓰기</a>
         </div>
     </section>
 

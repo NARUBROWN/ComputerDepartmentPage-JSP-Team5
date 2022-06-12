@@ -48,6 +48,7 @@
 		String content = "";
 		String parameter = "";
 		String query = "";
+		String type = "";
 		
 		if(request.getParameter("type").equals("notice")){
 			noticeDTO notice = new noticeDAO().getNotice(id);
@@ -57,7 +58,8 @@
 			content = notice.getNo_content();
 			mainTitle ="공지사항";
 			parameter = "no-delete";
-			query = "notice_content_update_form.jsp?no_id=";
+			query = "update.jsp?id=";
+			type = "&type=notice";
 			
 		} else if(request.getParameter("type").equals("community")) {
 			communityDTO community = new communityDAO().getCommunity(id);
@@ -67,7 +69,8 @@
 			content = community.getCo_content();
 			mainTitle = "커뮤니티";
 			parameter = "co-delete";
-			query = "community_content_update_form.jsp?co_id=";
+			query = "update.jsp?id=";
+			type = "&type=community";
 		}
 	
 	%>
@@ -97,13 +100,13 @@
             </li>
         </ul>
         <div class="write_notice">
-            <a href="<%= query + id %>">수정</a>
+            <a href="<%= query + id + type %>">수정</a>
         </div>
             <div class="write_notice">
             <a href="${pageContext.request.contextPath}/web_control.jsp?action=<%= parameter %>&id=<%= id %>">삭제</a>
         </div>
         <div class="move_notice">
-            <a href="notice_list.jsp">목록</a>
+            <a href="javascript:window.history.back();">목록</a>
         </div>
     </section>
 
