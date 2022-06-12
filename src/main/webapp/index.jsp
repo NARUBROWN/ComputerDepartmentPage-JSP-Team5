@@ -79,8 +79,8 @@
     <section class="intro">
         <aside>
             <div class="cardTitle">
-                <a class="titleLeft" href="#">학과 공지사항</a>
-                <a class="right" href="#">더보기 +</a>
+                <a class="titleLeft">학과 공지사항</a>
+                <a class="right" href="pages/notice_list.jsp">더보기 +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
@@ -88,10 +88,10 @@
                     <%
 						mainDAO maintitle = new mainDAO();
 						ArrayList<noticeDTO> title_lists = maintitle.getMainPageNoticeList();
-						for(int i = 0; i < 5; i++) {
+						for(int i = 0; i < title_lists.size(); i++) {
 					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="#"><%=title_lists.get(i).getNo_title()%></a></th>
+                        <th class="title-ellipsis"><a href="pages/view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></th>
                     </tr>
                     <%
 						}
@@ -103,7 +103,7 @@
                 <table>
                     <tbody>
                     <%
-						for(int i = 0; i < 5; i++) {
+						for(int i = 0; i < title_lists.size(); i++) {
 					%>
                     <tr>
                         <th><%=title_lists.get(i).getNo_date().replace("-", "/")%></th>
@@ -117,18 +117,18 @@
         </aside>
         <aside>
             <div class="cardTitle">
-                <a class="titleLeft" href="#">커뮤니티</a>
-                <a class="right" href="#">더보기 +</a>
+                <a class="titleLeft">커뮤니티</a>
+                <a class="right" href="pages/community_list.jsp">더보기 +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
                     <%
 						ArrayList<communityDTO> date_lists = maintitle.getMainPagecommunityList();
-						for(int i = 0; i < 5; i++) {
+						for(int i = 0; i < date_lists.size(); i++) {
 					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="#"><%=date_lists.get(i).getCo_title()%></a></th>
+                        <th class="title-ellipsis"><a href="pages/view_content.jsp?id=<%=date_lists.get(i).getCo_id()%>&type=community"><%=date_lists.get(i).getCo_title()%></a></th>
                     </tr>
                     <%
 						}
@@ -140,7 +140,7 @@
                 <table>
                     <tbody>
                     <%
-						for(int i = 0; i < 5; i++) {
+						for(int i = 0; i < date_lists.size(); i++) {
 					%>
                     <tr>
                         <th><%=date_lists.get(i).getCo_date().replace("-", "/")%></th>
