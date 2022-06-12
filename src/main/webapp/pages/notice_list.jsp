@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="notice.noticeDAO" %>
+    <%@ page import="notice.noticeDTO" %>
+    <%@ page import="mainPage.mainDAO" %>
+    <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,6 +31,12 @@
     <meta charset="UTF-8">
     <title>로그인 페이지</title>
 </head>
+<%
+		int pageNumber = 1;
+		if (request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+	%>
 <body>
     <jsp:include page="/components/topbar.jsp"></jsp:include>
 	<jsp:include page="/components/header.jsp"></jsp:include>
@@ -40,12 +50,20 @@
                 <span>작성일</span>
                 <span>작성자</span>
             </li>
+            <%
+						mainDAO maintitle = new mainDAO();
+						ArrayList<noticeDTO> title_lists = maintitle.getMainPageNoticeList();
+						for(int i = 0; i < 5; i++) {
+            %>
             <li>
                 <span>10</span>
                 <span><a href="#">WordPress Developer Contractor</a></span>
                 <span>2022-06-09</span>
                 <span>Remote</span>
             </li>
+            <%
+            }
+            %>
             <li>
                 <span>9</span>
                 <span><a href="#">WordPress Developer Contractor</a></span>
