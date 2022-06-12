@@ -29,8 +29,8 @@
     <title>로그인 페이지</title>
 </head>
 <body>
-    <jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
+   <!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 	
             <!-- 회원가입 -->
             <div id="wrapper">

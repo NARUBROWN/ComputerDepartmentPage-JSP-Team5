@@ -33,6 +33,9 @@
 			id = Integer.parseInt(request.getParameter("id"));
 		}
 		
+		// userID 확인;
+		String user = (String)session.getAttribute("userID");
+		
 		if(id == 0){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -49,6 +52,7 @@
 		String parameter = "";
 		String query = "";
 		String type = "";
+		String typeName = "";
 		
 		if(request.getParameter("type").equals("notice")){
 			noticeDTO notice = new noticeDAO().getNotice(id);
@@ -60,6 +64,8 @@
 			parameter = "no-delete";
 			query = "update.jsp?id=";
 			type = "&type=notice";
+			typeName = "notice";
+			
 			
 		} else if(request.getParameter("type").equals("community")) {
 			communityDTO community = new communityDAO().getCommunity(id);
@@ -71,6 +77,7 @@
 			parameter = "co-delete";
 			query = "update.jsp?id=";
 			type = "&type=community";
+			typeName = "community";
 		}
 	
 	%>
@@ -80,8 +87,9 @@
     <title><%= mainTitle + " : " + title %></title>
 </head>
 <body>
-    <jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
+
+    <!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 	
 	
     <section class="notice_table">
@@ -99,18 +107,42 @@
                 <%= content %>
             </li>
         </ul>
-        <div class="write_notice">
-            <a href="<%= query + id + type %>">수정</a>
-        </div>
-            <div class="write_notice">
-            <a href="${pageContext.request.contextPath}/web_control.jsp?action=<%= parameter %>&id=<%= id %>">삭제</a>
-        </div>
+        
+        <% 
+        	// user에 로그인 정보가 없으면 글쓰기 버튼이 안 보임
+        	if(typeName.equals("notice")){
+        		if(user.equals("admin")) { %>
+				 <div class="write_notice">
+            		<a href="<%= query + id + type %>">수정</a>
+        		</div>
+            	<div class="write_notice">
+            		<a href="${pageContext.request.contextPath}/web_control.jsp?action=<%= parameter %>&id=<%= id %>">삭제</a>
+        		</div>	
+        		<% } else { %>
+        			
+        		<% }
+        	} else if (typeName.equals("community")) {
+        		if(user == null){ %>
+        			
+        		<% } else if(user.equals(author)) { %>
+        		<div class="write_notice">
+            		<a href="<%= query + id + type %>">수정</a>
+        		</div>
+            	<div class="write_notice">
+            		<a href="${pageContext.request.contextPath}/web_control.jsp?action=<%= parameter %>&id=<%= id %>">삭제</a>
+        		</div>
+        		
+        		<% }
+        	
+        	}
+        %>
+        
         <div class="move_notice">
             <a href="javascript:window.history.back();">목록</a>
         </div>
     </section>
 
-<jsp:include page="/components/footer.jsp"></jsp:include>
+	<jsp:include page="/components/footer.jsp"></jsp:include>
     <script>
         $('body > header > nav > a:nth-child(1)').hover(function() {
             $('#dropdownNav1').fadeIn(200);

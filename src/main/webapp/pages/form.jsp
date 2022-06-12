@@ -51,11 +51,13 @@
 <title><%= contentTypeName %> 게시글 등록</title>
 </head>
 <body>
-	<jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
+	<!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 	
-	<!-- user에 유저의 ID를 받아주세요 -->
-		<% String user = "관리자"; 
+	
+		<% 
+		// 세션에서 userID 가져오는코드
+		String user = (String) session.getAttribute("userID");
 		
 		// 오늘 날짜 받는 부분
 		Date date = new Date();

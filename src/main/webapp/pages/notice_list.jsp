@@ -32,14 +32,18 @@
 </head>
 <body>
 	<%
-		// notice_list.jsp?pageNumber=3
+		// 세션에서 userID 가져오는코드
+		String user = (String) session.getAttribute("userID");
+	
+		// 페이지에 파라미터가 같이 넘어오지 않을경우 1을 기본으로 넣어줌 
 		int pageNumber = 1;
 		if (request.getParameter("pageNumber") != null) {
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
 	%>
-    <jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
+	
+    <!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 
     <section class="notice_table">
         <h2>공지사항</h2>
@@ -101,8 +105,16 @@
                 </li>
             </ol>
         </div>
+         <% 
+        	// user에 로그인 정보가 없으면 글쓰기 버튼이 안 보임
+        	if(user == null){
+        	} else  {
+        %>
         <div class="write_notice">
             <a href="form.jsp?type=notice">글쓰기</a>
+        <%
+        	}
+        %>
         </div>
     </section>
 
