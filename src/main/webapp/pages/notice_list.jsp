@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="notice.*" %>
+    <%@ page import="notice.noticeDTO" %>
+    <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,9 +28,16 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-    <title>로그인 페이지</title>
+    <title>공지사항 게시글 목록</title>
 </head>
 <body>
+	<%
+		// notice_list.jsp?pageNumber=3
+		int pageNumber = 1;
+		if (request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+	%>
     <jsp:include page="/components/topbar.jsp"></jsp:include>
 	<jsp:include page="/components/header.jsp"></jsp:include>
 
@@ -40,66 +50,20 @@
                 <span>작성일</span>
                 <span>작성자</span>
             </li>
+            <%
+						noticeDAO maintitle = new noticeDAO();
+						ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);
+						for(int i = 0; i < title_lists.size(); i++) {
+            %>
             <li>
-                <span>10</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Remote</span>
+                <span><%=title_lists.get(i).getNo_id()%></span>
+                <span><a href="view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></span>
+                <span><%=title_lists.get(i).getNo_date().replace("-", "/")%></span>
+                <span><%=title_lists.get(i).getNo_author()%></span>
             </li>
-            <li>
-                <span>9</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>United States</span>
-            </li>
-            <li>
-                <span>8</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Philadelphia</span>
-            </li>
-            <li>
-                <span>7</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Canada</span>
-            </li>
-            <li>
-                <span>6</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>United States</span>
-            </li>
-            <li>
-                <span>5</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Germany</span>
-            </li>
-            <li>
-                <span>4</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Sylhet, Bangladesh</span>
-            </li>
-            <li>
-                <span>3</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Canada</span>
-            </li>
-            <li>
-                <span>2</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>Shenzhen, China</span>
-            </li>
-            <li>
-                <span>1</span>
-                <span><a href="#">WordPress Developer Contractor</a></span>
-                <span>2022-06-09</span>
-                <span>N/A</span>
-            </li>
+            <%
+            }
+            %>
         </ul>
         <div class="numCheck">
             <a href="#">&lt;</a>

@@ -6,6 +6,8 @@
 
 <jsp:useBean id="main" scope="page" class="mainPage.mainDAO"></jsp:useBean>
 <jsp:useBean id="user" scope="page" class="user.UserDAO"></jsp:useBean>
+<jsp:useBean id="notice" scope="page" class="notice.noticeDAO"></jsp:useBean>
+<jsp:useBean id="community" scope="page" class="community.communityDAO"></jsp:useBean>
 
 <jsp:useBean id="noticeDTO" scope="page" class="notice.noticeDTO"></jsp:useBean>
 <jsp:useBean id="communityDTO" scope="page" class="community.communityDTO"></jsp:useBean>
@@ -25,9 +27,9 @@
 	}
 	else if(action.equals("notice-insert")) {
 		// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
-		if(main.noticeInsertDB(noticeDTO)) {
+		if(notice.insertDB(noticeDTO)) {
 			// 처리가 완료되면 메인화면으로 다시 변경
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("pages/notice_list.jsp");
 		} else {
 			throw new Exception("DB입력 오류");
 		}
@@ -36,7 +38,7 @@
 		// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
 		if(main.communityInsertDB(communityDTO)) {
 			// 처리가 완료되면 메인화면으로 다시 변경
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("pages/community_list.jsp");
 		} else {
 			throw new Exception("DB입력 오류");
 		}
@@ -90,7 +92,34 @@
 	else if(action.equals("logout")) {
 			session.invalidate();
 			response.sendRedirect("index.jsp");
-	} else {
-		// 빈자리
+	} else if(action.equals("notice-update")){
+		if(notice.updateNotice(noticeDTO)) {
+			// 처리가 완료되면 쓰던 페이지로 다시 변경
+			response.sendRedirect("pages/view_content.jsp?id=" + noticeDTO.getNo_id()+ "&type=notice");
+		} else {
+			throw new Exception("DB입력 오류");
+		}
+	} else if(action.equals("community-update")){
+		if(community.updateCommunity(communityDTO)){
+			response.sendRedirect("pages/view_content.jsp?id=" + communityDTO.getCo_id()+ "&type=community");
+		} else {
+			throw new Exception("DB입력 오류");
+		}
+	}else if(action.equals("no-delete")) {
+		String no_con_id = request.getParameter("id");
+		int no_id = Integer.parseInt(no_con_id);
+		if(notice.deleteNotice(no_id)){
+			response.sendRedirect("pages/notice_list.jsp");
+		} else { 
+			throw new Exception("DB입력 오류");
+		}
+	} else if(action.equals("co-delete")) {
+		String co_con_id = request.getParameter("id");
+		int co_id = Integer.parseInt(co_con_id);
+		if(community.deleteCommunity(co_id)){
+			response.sendRedirect("pages/community_list.jsp");
+		} else { 
+			throw new Exception("DB입력 오류");
+		}
 	}
 %>
