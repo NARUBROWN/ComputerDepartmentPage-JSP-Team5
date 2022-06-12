@@ -16,15 +16,15 @@ public class JDBCUtil {
 		return null;
 	}
 
-	public static void close(PreparedStatement stmt, Connection conn) {
-		if (stmt != null) {
+	public static void close(PreparedStatement pstmt, Connection conn) {
+		if (pstmt != null) {
 			try {
-				if (!stmt.isClosed())
-					stmt.close();
+				if (!pstmt.isClosed())
+					pstmt.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				stmt = null;
+				pstmt = null;
 			}
 		}
 		if (conn != null) {
@@ -39,7 +39,7 @@ public class JDBCUtil {
 		}
 	}
 
-	public static void close(ResultSet rs, PreparedStatement stmt, Connection conn) {
+	public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
 		if (rs != null) {
 			try {
 				if (!rs.isClosed())
@@ -50,14 +50,38 @@ public class JDBCUtil {
 				rs = null;
 			}
 		}
-		if (stmt != null) {
+		if (pstmt != null) {
 			try {
-				if (!stmt.isClosed())
-					stmt.close();
+				if (!pstmt.isClosed())
+					pstmt.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				stmt = null;
+				pstmt = null;
+			}
+		}
+		if (conn != null) {
+			try {
+				if (!conn.isClosed())
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				conn = null;
+			}
+		}
+	}
+	
+	// psmt 빼고
+	public static void close(ResultSet rs, Connection conn) {
+		if (rs != null) {
+			try {
+				if (!rs.isClosed())
+					rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				rs = null;
 			}
 		}
 		if (conn != null) {

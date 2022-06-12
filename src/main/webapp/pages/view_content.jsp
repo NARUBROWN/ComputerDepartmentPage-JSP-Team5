@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.io.PrintWriter" %>
+    <%@ page import="notice.*" %>
+    <%@ page import="community.*" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,35 +25,85 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../resource/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../resource/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../resource/favicon/favicon-16x16.png">
-
+	
+	<%
+	
+		int id = 0;
+		if(request.getParameter("id") != null){
+			id = Integer.parseInt(request.getParameter("id"));
+		}
+		
+		if(id == 0){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글 입니다.')");
+			script.println("location.href='../index.jsp'");
+			script.println("</script>");
+		}
+		
+		String mainTitle = "";
+		String title = "";
+		String author = "";
+		String date = "";
+		String content = "";
+		String parameter = "";
+		String query = "";
+		
+		if(request.getParameter("type").equals("notice")){
+			noticeDTO notice = new noticeDAO().getNotice(id);
+			title = notice.getNo_title();
+			author = notice.getNo_author();
+			date = notice.getNo_date();
+			content = notice.getNo_content();
+			mainTitle ="공지사항";
+			parameter = "no-delete";
+			query = "notice_content_update_form.jsp?no_id=";
+			
+		} else if(request.getParameter("type").equals("community")) {
+			communityDTO community = new communityDAO().getCommunity(id);
+			title = community.getCo_title();
+			author = community.getCo_author();
+			date = community.getCo_date();
+			content = community.getCo_content();
+			mainTitle = "커뮤니티";
+			parameter = "co-delete";
+			query = "community_content_update_form.jsp?co_id=";
+		}
+	
+	%>
+	
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-    <title>로그인 페이지</title>
+    <title><%= mainTitle + " : " + title %></title>
 </head>
 <body>
     <jsp:include page="/components/topbar.jsp"></jsp:include>
 	<jsp:include page="/components/header.jsp"></jsp:include>
-
+	
+	
     <section class="notice_table">
-        <h2>커뮤니티(본문)</h2>
+        <h2><%= mainTitle %></h2>
         <ul>
             <li class="font_head">
-                <h3>제목을 쓰시면 됩니다.</h3>
+                <h3><%= title %></h3>
             </li>
             <li class="notice_writer">
-                <span>작성자 : 관리자</span>
-                <span>작성일 : 2022-06-09</span>
+                <span>작성자 : <%= author %></span>
+                <span>작성일 : <%= date %></span>
             </li>
             <li class="notice_content">
                 <img src="./">
+                <%= content %>
             </li>
         </ul>
         <div class="write_notice">
-            <a href="notice_write.jsp">글쓰기</a>
-            <!-- 여기를 수정으로 바꾸시면 됩니다. -->
+            <a href="<%= query + id %>">수정</a>
+        </div>
+            <div class="write_notice">
+            <a href="${pageContext.request.contextPath}/web_control.jsp?action=<%= parameter %>&id=<%= id %>">삭제</a>
         </div>
         <div class="move_notice">
-            <a href="notice.jsp">목록</a>
+            <a href="notice_list.jsp">목록</a>
         </div>
     </section>
 
