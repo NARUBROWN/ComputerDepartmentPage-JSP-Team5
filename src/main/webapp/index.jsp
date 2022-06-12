@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
+ <%@ page import="mainPage.mainDAO" %>
+ <%@ page import="notice.noticeDTO" %>
+ <%@ page import="community.communityDTO" %>
+ <%@ page import="java.util.ArrayList" %>
+ <%@ page import="java.io.PrintWriter" %>
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,87 +36,15 @@
 <body>
 <script>
     $(window).on('load', function(){
-        $(".loading").fadeOut(3000);
+        $(".loading").fadeOut(1000);
     });
 </script>
 
 <div class="loading"></div>
-    <div class="top">
-            <div>
-                <a href="#">대학 홈페이지</a>
-                <a href="./pages/login.html">로그인</a>
-            </div>
-    </div>
-    <header>
-        <a href="./main.html">
-            <img src="resource/img/header_logo.png" alt="학교로고">
-        </a>
-        <nav>
-            <a href="pages/sub.html">학과소개</a>
-            <a href="pages/sub.html">교육과정</a>
-            <a href="pages/sub.html">졸업/진로</a>
-            <a href="pages/sub.html">커뮤니티</a>
-        </nav>
-    </header>
-        <!--드롭다운 네비게이션 영역-->
-        <div class="dropNavBackgroundMain">
-            <!--드롭다운 네비게이션 1-->
-            <div class="dropNavBackground1" id="dropdownNav1">
-                <ul>
-                    <li>
-                        <a href="#">학과소개</a>
-                    </li>
-                    <li>
-                        <a href="#">교수소개</a>
-                    </li>
-                    <li>
-                        <a href="#">실습실안내</a>
-                    </li>
-                    <li>
-                        <a href="#">오시는 길</a>
-                    </li>
-                </ul>
-            </div>
-            <!--드롭다운 네비게이션 2-->
-            <div class="dropNavBackground2" id="dropdownNav2">
-                <ul>
-                    <li>
-                        <a href="#">로드맵</a>
-                    </li>
-                    <li>
-                        <a href="#">교과목 소개</a>
-                    </li>
-                </ul>
-            </div>
-            <!--드롭다운 네비게이션 3-->
-            <div class="dropNavBackground3" id="dropdownNav3">
-                <ul>
-                    <li>
-                        <a href="#">학과SNS</a>
-                    </li>
-                    <li>
-                        <a href="#">학생회 임원단</a>
-                    </li>
-                    <li>
-                        <a href="#">학과공지</a>
-                    </li>
-                    <li>
-                        <a href="#">자료실</a>
-                    </li>
-                    <li>
-                        <a href="#">갤러리</a>
-                    </li>
-                </ul>
-            </div>
-            <!--드롭다운 네비게이션 4-->
-            <div class="dropNavBackground4" id="dropdownNav4">
-                <ul>
-                    <li>
-                        <a href="#">취업 현황</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
+<jsp:include page="/components/topbar.jsp"></jsp:include>
+<jsp:include page="/components/header.jsp"></jsp:include>
+ 
     <section class="banner">
         <div>
             <!--배너 타이틀 영역-->
@@ -151,42 +85,32 @@
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
+                    <%
+						mainDAO maintitle = new mainDAO();
+						ArrayList<noticeDTO> title_lists = maintitle.getMainPageNoticeList();
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">인천재능대학교 산학협력단 직원 채용 공고</a></th>
+                        <th class="title-ellipsis"><a href="#"><%=title_lists.get(i).getNo_title()%></a></th>
                     </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2023학년도 입학전형 시행계획 변경 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2022-1차 학칙개정심의 공고</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2024학년도 인천재능대학교 입학전형 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">학생상담센터 학기중 교내 국가근로 장학생 모집</a></th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
             <div class="dateArea">
                 <table>
                     <tbody>
+                    <%
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th class="date-th">2022/05/17</th>
+                        <th><%=title_lists.get(i).getNo_date().replace("-", "/")%></th>
                     </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
@@ -199,99 +123,38 @@
             <div class="titleArea">
                 <table class="table_title">
                     <tbody>
+                    <%
+						ArrayList<communityDTO> date_lists = maintitle.getMainPagecommunityList();
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="#">인천재능대학교 산학협력단 직원 채용 공고</a></th>
+                        <th class="title-ellipsis"><a href="#"><%=date_lists.get(i).getCo_title()%></a></th>
                     </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2023학년도 입학전형 시행계획 변경 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2022-1차 학칙개정심의 공고</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">2024학년도 인천재능대학교 입학전형 안내</a></th>
-                    </tr>
-                    <tr>
-                        <th class="title-ellipsis"><a href="#">학생상담센터 학기중 교내 국가근로 장학생 모집</a></th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
             <div class="dateArea">
                 <table>
                     <tbody>
+                    <%
+						for(int i = 0; i < 5; i++) {
+					%>
                     <tr>
-                        <th>2022/05/17</th>
+                        <th><%=date_lists.get(i).getCo_date().replace("-", "/")%></th>
                     </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
-                    <tr>
-                        <th>2022/05/17</th>
-                    </tr>
+                    <%
+						}
+					%>
                     </tbody>
                 </table>
             </div>
         </aside>
     </section>
-    <footer>
-        <img src="resource/img/footer_logo.png" alt="">
-        <div class="left">
-            <div>
-                <table>
-                    <tr>
-                        <td><h2>인천재능대학교</h2></td>
-                    </tr>
-                    <tr>
-                        <td>22573 인천광역시 동구 재능로 178</td>
-                    </tr>
-                    <tr>
-                        <td>Tel: 032-890-7000</td>
-                    </tr>
-                    <tr>
-                        <td>Fax: 032-890-7065</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <aside>
-            <div>
-            <table>
-                <tr>
-                    <td><h2>송림캠퍼스</h2></td>
-                </tr>
-                <tr>
-                    <td>22573 인천광역시 동구 재능로 178</td>
-                </tr>
-                <tr>
-                    <td>Tel: 032-890-7000</td>
-                </tr>
-                <tr>
-                    <td>Fax: 032-890-7065</td>
-                </tr>
-            </table>
-            </div>
-            <div>
-            <table>
-                <tr>
-                    <td><h2>송도캠퍼스</h2></td>
-                </tr>
-                <tr>
-                    <td>21987 인천광역시 연수구 송도동 196-1</td>
-                </tr>
-                <tr>
-                    <td>Tel: 021-890-7000</td>
-                </tr>
-            </table>
-            </div>
-        </aside>
-    </footer>
+    <jsp:include page="/components/footer.jsp"></jsp:include>
+    
 <script>
     $('body > header > nav > a:nth-child(1)').hover(function() {
         $('#dropdownNav1').fadeIn(200);

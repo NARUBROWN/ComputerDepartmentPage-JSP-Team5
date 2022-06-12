@@ -1,0 +1,112 @@
+body{
+    margin: 0 auto;
+}
+.notice_table{
+    width: 70%;
+    height: 650px;
+    padding: 50px;
+    margin: 60px auto;
+    border-radius: 5px;
+    /* box-shadow: 2px 2px 8px #8e8e8e; */
+}
+.notice_table > h2{
+    margin: 0 auto;
+    text-align: center;
+}
+.notice_table > h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 0px;
+    padding-top: 40px;
+    border-bottom: 3px solid #ccc;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+.font_head{
+    font-weight: bold;
+}
+.notice_table > ul{
+    margin: 0 0 20px 0; padding: 0; list-style: none;
+}
+.notice_table > ul li:after{
+    content: ''; display: block; visibility: hidden; clear: both;
+}
+.notice_table > ul li:first-child{
+    /* background: #eeebeb; */
+    border-top: 2px solid #2F2F2F;
+}
+.notice_table > ul li{
+    border-bottom: 0.5px solid lightgray;
+}
+/* .notice_table > ul li:nth-child(even):hover{
+    background-color: skyblue;
+} */
+/* .notice_table > ul li:nth-child(odd):not(:first-child){
+    background-color: lightgray;
+} */
+/* .notice_table > ul li:nth-child(odd):not(:first-child):hover{
+    background-color: lightyellow;
+} */
+
+.notice_table > ul li span{
+    display: block; float: left; padding: 15px 2%; font-size: 14px;
+    color: #2F2F2F;; text-transform: capitalize; box-sizing: border-box;
+}
+.notice_table > ul li span:nth-child(2){
+    color: #2F2F2F;; width: 40%;
+}
+.notice_table > ul li span:nth-child(odd){
+    width: 15%;
+}
+.notice_table > ul li span:last-child{
+    width: 30%;
+}
+body > .notice_table > .numCheck{
+    position: relative; width: 50%; max-width: 400px; margin: 0 auto 15px; padding: 0 20px;
+}
+body > .notice_table > .numCheck a{
+    text-decoration: none; font-size: 12px; color: black; display: block; text-align: center;
+}
+body > .notice_table > .numCheck > a{
+    position: absolute; line-height: 33px; top: 0;
+}
+body > .notice_table > .numCheck > a:first-of-type{
+    left: 0;
+}
+body > .notice_table > .numCheck > a:last-of-type{
+    right: 0;
+}
+body > .notice_table > .numCheck ol{
+    margin: 0; padding: 0;
+}
+body > .notice_table > .numCheck ol:after{
+    content: ''; display: block; visibility: hidden; clear: both;
+}
+body > .notice_table > .numCheck ol li{
+    display: block; float: left; width: 9%; line-height: 33px;
+}
+body > .notice_table > .numCheck ol li:not(:first-child){
+    margin-left: 1.1%;
+}
+body > .notice_table > .numCheck ol li a:hover{
+    background-color: #E06E37; color: white; border-radius: 33px;
+    transition-duration: 0.5s;
+}
+.write_notice{
+    position: absolute;
+    margin-left: 63%;
+    width: 45px;
+    background: #8e8e8e;
+    color: #fff;
+    padding: 10px 33px;
+    border: 2px solid #8e8e8e;
+}
+.write_notice:hover{
+    background: whitesmoke;
+    color: #000;
+    transition: 0.5s;
+}
+footer{
+    margin-top: 50px;
+}
