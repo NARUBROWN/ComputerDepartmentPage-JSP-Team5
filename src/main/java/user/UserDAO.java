@@ -1,31 +1,21 @@
 package user;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import jdbc_mysql.JDBCUtil;
+
 public class UserDAO {
 
-		private Connection conn;
-		private PreparedStatement pstmt;
-		private ResultSet rs;
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 		
-		public UserDAO() {
+	public int login(String userID, String userPassword) {
+		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 			try {
-				String dbURL = "jdbc:mysql://localhost:3306/JSP";
-				String dbID = "root";
-				String dbPassword = "1234";
-				Class.forName("com.mysql.jdbc.Driver");
-				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		public int login(String userID, String userPassword) {
-			String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
-			try {
+				conn = JDBCUtil.getConnection();
 				pstmt = conn.prepareStatement(SQL);
 				pstmt.setString(1, userID);
 				rs = pstmt.executeQuery();
@@ -40,6 +30,8 @@ public class UserDAO {
 				return -1; // id X
 			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				JDBCUtil.close(pstmt, conn);
 			}
 			return -2; // db오류
 		}

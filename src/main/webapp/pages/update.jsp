@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*"%>
     
     <%@ page import="java.io.PrintWriter" %>
+    <%@ page import="notice.*" %>
     <%@ page import="community.*" %>
     
 <!DOCTYPE html>
@@ -29,41 +30,84 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-<title>커뮤니 게시글 수정</title>
+	<%
+		
+	int id = 0;
+	if(request.getParameter("id") != null){
+		id = Integer.parseInt(request.getParameter("id"));
+	}
+	
+	if(id == 0){
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('유효하지 않은 글 입니다.')");
+		script.println("location.href='../index.jsp'");
+		script.println("</script>");
+	}
+	
+	String mainTitle = "";
+	String title = "";
+	String author = "";
+	String date = "";
+	String content = "";
+	String parameter = "";
+	String query = "";
+	String pushType = "";
+	String type = "";
+	
+	if(request.getParameter("type").equals("notice")){
+		noticeDTO notice = new noticeDAO().getNotice(id);
+		title = notice.getNo_title();
+		author = notice.getNo_author();
+		date = notice.getNo_date();
+		content = notice.getNo_content();
+		mainTitle ="공지사항";
+		parameter = "notice-update";
+		query = "notice_content_update_form.jsp?no_id=";
+		pushType = "no";
+		type = "notice";
+		
+	} else if(request.getParameter("type").equals("community")) {
+		communityDTO community = new communityDAO().getCommunity(id);
+		title = community.getCo_title();
+		author = community.getCo_author();
+		date = community.getCo_date();
+		content = community.getCo_content();
+		mainTitle = "커뮤니티";
+		parameter = "community-update";
+		query = "community_content_update_form.jsp?co_id=";
+		pushType = "co";
+		type = "community";
+	}
+	
+	%>
+<title><%= mainTitle %> 게시글 수정</title>
 </head>
 <body>
-	<jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
-	
-	<%
-		int co_id = 0;
-		if (request.getParameter("co_id") != null) {
-			co_id = Integer.parseInt(request.getParameter("co_id"));
-		}
-		
-		communityDTO notice = new communityDAO().getCommunity(co_id);
-	%>
+
+	<!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 		
 	<section class="notice_table">
-        <h2>커뮤니티 (수정)</h2>
+        <h2><%= mainTitle %> (수정)</h2>
         <form name="form1" method="POST" action="${pageContext.request.contextPath}/web_control.jsp">
-        <input type="hidden" name="action" value="community-update">
-        <input type="hidden" name="co_id" value="<%= co_id %>">
+        <input type="hidden" name="action" value="<%= parameter %>">
+        <input type="hidden" name="<%= pushType %>_id" value="<%= id %>">
             <ul>
                 <li class="font_head">
                     <span>제목</span>
-                    <span><input type="text" name="co_title" value="<%=notice.getCo_title() %>"></span>
+                    <span><input type="text" name="<%= pushType %>_title" value="<%= title %>"></span>
                 </li>
                 <li class="notice_content">
                     <span>내용</span>
-                    <span><textarea name="co_content"><%= notice.getCo_content() %></textarea></span>
+                    <span><textarea name="<%= pushType %>_content"><%= content %></textarea></span>
                 </li>
             </ul>
             <div class="write_notice">
                 <input type="submit" value="게시글 등록">
             </div>
             <div class="move_notice">
-                <a href="notice_list.jsp">목록</a>
+                <a href="<%= type %>_list.jsp">목록</a>
             </div>
         </form>
     </section>

@@ -31,7 +31,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-    <title>인천재능대학교 컴퓨터정보과</title>
+    <title>인천재능대학교 컴퓨터정보과 관리자 페이지</title>
 </head>
 <body>
 <script>
@@ -39,42 +39,11 @@
         $(".loading").fadeOut(1000);
     });
 </script>
-
 <div class="loading"></div>
 
-	<!-- topBar와 header -->
-    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
+<jsp:include page="/components/admin_topbar.jsp"></jsp:include>
+<jsp:include page="/components/admin_header.jsp"></jsp:include>
  
-    <section class="banner">
-        <div>
-            <!--배너 타이틀 영역-->
-            <div class="title">
-                <h3>Department of Computer &amp; Information technology</h3>
-                <h1>컴퓨터정보과</h1>
-                <p>강하고 경쟁력있는 IT인재 양성의 요람<br>
-                인천재능대학교 AI컴퓨터정보과</p>
-            </div>
-            <!--키 포인트 영역-->
-            <ol>
-                <li>
-                    <a><br>전문대 최초<br>송도캠퍼스</a>
-                </li>
-                <li>
-                    <a><br>AI&amp;Bio<br>선도대학</a>
-                </li>
-                <li>
-                    <a><br>LINC 사업<br>연속 선정</a>
-                </li>
-                <li>
-                    <a><br>자율개선대학<br>지속 선정</a>
-                </li>
-            </ol>
-        </div>
-        <!--동영상 배경-->
-        <video muted autoplay loop>
-            <source src="resource/video/background-video.mp4" type="video/mp4">
-        </video>
-    </section>
     <!--인트로 페이지-->
     <section class="intro">
         <aside>

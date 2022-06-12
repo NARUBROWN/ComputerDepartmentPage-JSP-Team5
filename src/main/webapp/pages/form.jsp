@@ -28,14 +28,36 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-<title>공지사항 게시글 등록</title>
+    
+    	<%
+		
+		String contentTypeName = "";
+		String webcontrolPush = "";
+		String contentType = "";
+		
+		if(request.getParameter("type").equals("notice")){
+			contentTypeName = "공지사항";
+			webcontrolPush = "notice-insert";
+			contentType = "no";
+			
+		} else if(request.getParameter("type").equals("community")) {
+			contentTypeName = "커뮤니티";
+			webcontrolPush = "commnuity-insert";
+			contentType = "co";
+		}
+	
+	%>
+	
+<title><%= contentTypeName %> 게시글 등록</title>
 </head>
 <body>
-	<jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
+	<!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 	
-	<!-- user에 유저의 ID를 받아주세요 -->
-		<% String user = "관리자"; 
+	
+		<% 
+		// 세션에서 userID 가져오는코드
+		String user = (String) session.getAttribute("userID");
 		
 		// 오늘 날짜 받는 부분
 		Date date = new Date();
@@ -44,29 +66,29 @@
 		%>
 		
 	<section class="notice_table">
-        <h2>공지사항 (글쓰기)</h2>
+        <h2><%= contentTypeName %> (글쓰기)</h2>
         <form name="form1" method="POST" action="${pageContext.request.contextPath}/web_control.jsp">
-        <input type="hidden" name="action" value="notice-insert">
+        <input type="hidden" name="action" value="<%= webcontrolPush %>">
             <ul>
                 <li class="font_head">
                     <span>제목</span>
-                    <span><input type="text" name="no_title"></span>
+                    <span><input type="text" name="<%= contentType %>_title"></span>
                 </li>
 				<li>
 					<!-- 이용자 ID 처리 -->
-					<input type="hidden" name="no_author" value="<%=user%>">
+					<input type="hidden" name="<%= contentType %>_author" value="<%=user%>">
 				</li>
                 <li class="notice_content">
                     <span>내용</span>
-                    <span><textarea name="no_content"></textarea></span>
+                    <span><textarea name="<%= contentType %>_content"></textarea></span>
                 </li>
                 <li>
                 	<!-- 오늘 날짜 처리 -->
-                	<input type="hidden" name="no_date" value="<%=strdate%>">
+                	<input type="hidden" name="<%= contentType %>_date" value="<%=strdate%>">
                 </li>
             </ul>
             <div class="write_notice">
-                <input type="submit" value="게시글 등록">
+                <input type="submit" value="저장">
             </div>
             <div class="move_notice">
                 <a href="#">목록</a>
