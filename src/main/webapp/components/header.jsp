@@ -47,7 +47,7 @@
             <div class="dropNavBackground3" id="dropdownNav3">
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/pages/notice_list.jsp">공지사항</a>
+                        <a href="${pageContext.request.contextPath}/pages/list.jsp?type=notice">공지사항</a>
                     </li>
                     <li>
                         <a href="#">학생회 임원단</a>
@@ -67,7 +67,7 @@
             <div class="dropNavBackground4" id="dropdownNav4">
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/pages/community_list.jsp">커뮤니티</a>
+                        <a href="${pageContext.request.contextPath}/pages/list.jsp?type=community">커뮤니티</a>
                     </li>
                 </ul>
             </div>

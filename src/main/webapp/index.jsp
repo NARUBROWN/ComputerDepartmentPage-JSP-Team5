@@ -80,7 +80,7 @@
         <aside>
             <div class="cardTitle">
                 <a class="titleLeft">학과 공지사항</a>
-                <a class="right" href="pages/notice_list.jsp">더보기 +</a>
+                <a class="right" href="pages/list.jsp?type=notice">더보기 +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
@@ -118,7 +118,7 @@
         <aside>
             <div class="cardTitle">
                 <a class="titleLeft">커뮤니티</a>
-                <a class="right" href="pages/community_list.jsp">더보기 +</a>
+                <a class="right" href="pages/list.jsp?type=community">더보기 +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
