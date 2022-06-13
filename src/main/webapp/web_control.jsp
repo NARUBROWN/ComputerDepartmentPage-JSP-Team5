@@ -1,3 +1,4 @@
+<%@page import="user.UserDAO"%>
 <%@page import="user.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -65,14 +66,28 @@
 		
 		int result = user.join(userDTO);
 		if (result == 1) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('회원가입에 성공했습니다.')");
-			script.println("location.href='index.jsp';");
-			script.println("</script>");
-			script.close();
-			return;
-		}
+			// Auth 로 현재 권한 가져오기
+			String Auth = (String) session.getAttribute("userAuth");
+			// Auth가 없을경우는 처음 회원가입 하는 상황
+			if(Auth == null){
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('회원가입에 성공했습니다.')");
+				script.println("location.href='index.jsp';");
+				script.println("</script>");
+				script.close();
+				return;
+			// Auth가 있을 경우는 관리자가 추가하는 상황
+			} else if(Auth.equals("staff")){
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('회원정보를 성공적으로 생성했습니다.')");
+				script.println("location.href='pages/list.jsp?type=member';");
+				script.println("</script>");
+				script.close();
+				return;
+			} 
+		} else if (result == -1){ out.print("예외발생");}
 	}
 	
 	// notice DB에 정보 입력
@@ -91,7 +106,7 @@
 		}
 	}
 	
-	// community DB애 정보 입력
+	// community DB 정보 입력
 	else if(action.equals("commnuity-insert")) {
 		// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
 		if(main.communityInsertDB(communityDTO)) {
@@ -122,11 +137,16 @@
 		}
 			int result = user.login(userDTO.getUserID(), userDTO.getUserPassword()); // 로그인 페이지에서 유저아이디 , 패스워드를 넘겨와서 실행해주는 함수
 			if (result ==1 ) {
+				
+				// getAuth로 String 권한 리턴 받아서 userAuth로 대입
+				String userAuth = user.getAuth(userDTO.getUserID());
+				session.setAttribute("userAuth", userAuth);
 				session.setAttribute("userID", userDTO.getUserID());
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("location.href = 'index.jsp'");
 				script.println("</script>");
+				
 			}
 			else if (result == 0) {
 			PrintWriter script = response.getWriter();

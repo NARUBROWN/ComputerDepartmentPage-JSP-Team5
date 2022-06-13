@@ -223,7 +223,16 @@
             		<a href="form.jsp?type=community">글쓰기</a>
         		</div>
         	<% }
-        }%>
+        	//type이 mem일 경우
+        } else if(contentType.equals("mem")) {
+       	 if(user.equals("admin")){ %>
+        		<div class="write_notice">
+            		<a href="sign_up.jsp?type=new">회원 추가</a>
+        		</div>
+        	<% } else { %>
+        		
+        	<%}
+        		 } %>
     </section>
 
 <jsp:include page="/components/footer.jsp"></jsp:include>

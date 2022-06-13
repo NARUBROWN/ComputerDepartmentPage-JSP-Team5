@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jdbc_mysql.JDBCUtil;
-import notice.noticeDTO;
 import user.UserDTO;
 
 public class adminDAO {

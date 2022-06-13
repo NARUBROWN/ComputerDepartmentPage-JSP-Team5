@@ -51,7 +51,7 @@
         <aside>
             <div class="cardTitle">
                 <a class="titleLeft">학과 공지사항</a>
-                <a class="right" href="pages/notice_list.jsp">더보기 +</a>
+                <a class="right" href="pages/list.jsp?type=notice">더보기 +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
@@ -89,7 +89,7 @@
         <aside>
             <div class="cardTitle">
                 <a class="titleLeft">커뮤니티</a>
-                <a class="right" href="pages/community_list.jsp">더보기 +</a>
+                <a class="right" href="pages/list.jsp?type=community">더보기 +</a>
             </div>
             <div class="titleArea">
                 <table class="table_title">
@@ -157,6 +157,38 @@
                     <%
 						}
 					%>
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+         <aside>
+            <div class="cardTitle">
+                <a class="titleLeft">관리자 페이지</a>
+            </div>
+            <div class="titleArea">
+                <table class="table_title">
+                    <tbody>     
+                    <tr>
+                        <th class="title-ellipsis"><a>관리자는 모든 게시물을 수정, 삭제할 수 있습니다.</a></th>
+                    </tr>
+					<tr>
+                        <th class="title-ellipsis"><a>오른쪽 위에 있는 관리 도구를 통해서 관리하십시오</a></th>
+                    </tr>
+                   	<tr>
+                        <th class="title-ellipsis"><a>관리자는 회원의 정보를 조회하거나 수정할 수 있습니다.</a></th>
+                    </tr>
+                    <tr>
+                        <th class="title-ellipsis"><a>추가 지침이 필요하신 사용자는 readme.md를 참고하십시오</a></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dateArea">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th></th>
+                    </tr>
                     </tbody>
                 </table>
             </div>

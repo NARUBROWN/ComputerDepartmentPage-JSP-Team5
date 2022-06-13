@@ -52,7 +52,30 @@ public class UserDAO {
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return -1;
 		}
-		return -1;
+	}
+	
+	//권한 가져오기
+	public String getAuth(String userID) {
+
+		String SQL = "SELECT userAuth FROM USER WHERE userID = ?";
+		String userAuth ="none";
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				userAuth = rs.getString(1);
+				return userAuth;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		return userAuth;
 	}
 }
