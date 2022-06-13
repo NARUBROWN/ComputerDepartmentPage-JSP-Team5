@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
- <%@ page import="mainPage.mainDAO" %>
- <%@ page import="notice.noticeDTO" %>
- <%@ page import="community.communityDTO" %>
+ <%@ page import="mainPage.*" %>
+ <%@ page import="notice.*" %>
+ <%@ page import="community.*" %>
+ <%@ page import="user.*" %>
+ <%@ page import="admin.*" %>
  <%@ page import="java.util.ArrayList" %>
  <%@ page import="java.io.PrintWriter" %>
  
@@ -113,6 +115,44 @@
 					%>
                     <tr>
                         <th><%=date_lists.get(i).getCo_date().replace("-", "/")%></th>
+                    </tr>
+                    <%
+						}
+					%>
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+        <aside>
+            <div class="cardTitle">
+                <a class="titleLeft">회원정보</a>
+                <a class="right" href="pages/list.jsp?type=member">더보기 +</a>
+            </div>
+            <div class="titleArea">
+                <table class="table_title">
+                    <tbody>
+                    <%
+                    	adminDAO admindao = new adminDAO();
+						ArrayList<UserDTO> memberlist = admindao.getAdminPageMemberList();
+						for(int i = 0; i < memberlist.size(); i++) {
+					%>
+                    <tr>
+                        <th class="title-ellipsis"><a href="pages/view_content.jsp?id=<%=memberlist.get(i).getUserRow()%>&type=community"><%=memberlist.get(i).getUserName()%></a></th>
+                    </tr>
+                    <%
+						}
+					%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dateArea">
+                <table>
+                    <tbody>
+                    <%
+						for(int i = 0; i < memberlist.size(); i++) {
+					%>
+                    <tr>
+                        <th><%=memberlist.get(i).getUserAuth()%></th>
                     </tr>
                     <%
 						}

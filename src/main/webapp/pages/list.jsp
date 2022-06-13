@@ -6,6 +6,8 @@
     <%@ page import="admin.*" %>
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="java.sql.ResultSet" %>
+    <%@ page import="java.io.PrintWriter" %>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,29 +45,44 @@
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
 		
+		// 변수 초기화
 		String contentTypeName = "";
 		String webcontrolPush = "";
 		String contentType = "";
 		
+		// type이 notice일 경우
 		if(request.getParameter("type").equals("notice")){
-			contentTypeName = "공지사항";
+			contentTypeName = "공지사항 게시글";
 			webcontrolPush = "notice";
 			contentType = "no";
-			
+		
+		// type이 community일 경우
 		} else if(request.getParameter("type").equals("community")) {
-			contentTypeName = "커뮤니티";
+			contentTypeName = "커뮤니티 게시글";
 			webcontrolPush = "commnuity";
 			contentType = "co";
+			
+		// type이 member일 경우
 		} else if(request.getParameter("type").equals("member")) {
-			contentTypeName = "회원";
-			webcontrolPush = "member";
-			contentType = "mem";
+			// 관리자가 접근 할 경우
+			if(user.equals("admin")) {
+				contentTypeName = "회원 정보";
+				webcontrolPush = "member";
+				contentType = "mem";
+				// 그렇지 않을 경우
+			} else { 
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('접근 권한이 없습니다.')");
+				script.println("history.back()"); // 전으로 돌리는 스크립트
+				script.println("</script>");
+			}
 		}
 		
 		
 	%>
 	
-    <title><%= contentTypeName %> 게시글 목록</title>
+    <title><%= contentTypeName %> 목록</title>
 </head>
 <body>
 	<!-- topBar와 header -->
