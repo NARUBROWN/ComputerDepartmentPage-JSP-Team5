@@ -110,6 +110,8 @@
         
         <% 
         	// user에 로그인 정보가 없으면 글쓰기 버튼이 안 보임
+        	
+        	// type이 공지사항 경우
         	if(typeName.equals("notice")){
         		if(user.equals("admin")) { %>
 				 <div class="write_notice">
@@ -121,10 +123,12 @@
         		<% } else { %>
         			
         		<% }
+        		
+        		// type이 커뮤니티일 경우
         	} else if (typeName.equals("community")) {
         		if(user == null){ %>
         			
-        		<% } else if(user.equals(author)) { %>
+        		<% } else if(user.equals(author) ||  user.equals("admin")){ %>
         		<div class="write_notice">
             		<a href="<%= query + id + type %>">수정</a>
         		</div>

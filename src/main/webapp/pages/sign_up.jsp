@@ -34,7 +34,8 @@
    
             <!-- 회원가입 -->
             <div id="wrapper">
-                <form method="post" action="../joinAction.jsp">
+                <form method="post" action="../web_control.jsp">
+                <input type="hidden" name="action" value="signup">
                     <div id="content">
 
                         <div>
