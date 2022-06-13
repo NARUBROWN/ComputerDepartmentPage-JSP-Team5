@@ -50,7 +50,7 @@
                         <div>
                             <h3 class="join_title"><label for="pswd1">비밀번호</label></h3>
                             <span class="box int_pass">
-                                <input type="text" id="pswd1" class="int" maxlength="20" name="userPassword">
+                                <input type="password" id="pswd1" class="int" maxlength="20" name="userPassword" style="font-family: sans-serif;">
                             </span>
                         </div>
 
@@ -83,11 +83,16 @@
                             </span>
                         </div>
                         <%
+                        	// 현재 유저 권한 받아오기
 							String userAuth = (String) session.getAttribute("userAuth");
-           					if(userAuth == null){
-           						
-           					} else if(userAuth.equals("staff")) {
-           					 %>
+							
+                            // 현재 유저에게 권한이 없을때 (새로 가입하는 상황)
+           					if(userAuth == null){ %>
+           					
+           						<input type="hidden" name="userAuth" value="student">
+           					<%
+           					// 현재 유저가 관리자일때 (관리자가 계정을 생성하는 상황)
+           					} else if(userAuth.equals("staff")) {%>
                 				<div>
                                  <h3 class="join_title"><label for="auth">구분</label></h3>
                                  <span class="box gender_code">

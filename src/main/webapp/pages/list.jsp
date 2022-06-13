@@ -45,6 +45,9 @@
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
 		
+		// session에서 Auth를 가져오기
+		String Auth = (String) session.getAttribute("userAuth");
+		
 		// 변수 초기화
 		String contentTypeName = "";
 		String webcontrolPush = "";
@@ -65,7 +68,7 @@
 		// type이 member일 경우
 		} else if(request.getParameter("type").equals("member")) {
 			// 관리자가 접근 할 경우
-			if(user.equals("admin")) {
+			if(Auth.equals("staff")) {
 				contentTypeName = "회원 정보";
 				webcontrolPush = "member";
 				contentType = "mem";
@@ -113,7 +116,25 @@
                 <span><%=title_lists.get(i).getNo_author()%></span>
             </li>	
             <% } %>
-         		 </ul>
+         	   </ul>
+         	   
+         	   <!-- 공지사항 이전, 다음 페이지 -->
+         		<div class="numCheck">
+         			<%
+				if(pageNumber != 1) {
+					
+					%>
+				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=notice">이전</a>
+					<%
+				} if(maintitle.nextPage(pageNumber + 1)) {
+					
+					%>
+				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=notice">다음</a>
+					<%
+				}
+					%>
+        	</div>
+        	
 				<%// community가 파라미터로 넘어왔을 경우
             	} else if (contentType.equals("co")){ 
             		communityDAO  maintitle = new communityDAO();
@@ -137,13 +158,30 @@
                 <span><%=title_lists.get(i).getCo_author()%></span>
             </li>
             	
-           			<% 	}%>
-           			</ul>
+           		<% 	}%>
+           		</ul>
+           			
+           		<!-- 커뮤니티 이전, 다음 페이지 -->
+         		<div class="numCheck">
+         			<%
+				if(pageNumber != 1) {
+					
+					%>
+				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=community">이전</a>
+					<%
+				} if(maintitle.nextPage(pageNumber + 1)) {
+					
+					%>
+				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=community">다음</a>
+					<%
+				}
+					%>
+        	</div>
            			<% 
-				// 멤버일 경우
-           		} else if (contentType.equals("mem")){ 
-           			adminDAO admindao = new adminDAO();
-           			ArrayList<UserDTO> title_lists = admindao.getList(pageNumber);%>
+			// 멤버일 경우
+           	} else if (contentType.equals("mem")){ 
+           			UserDAO userdao = new UserDAO();
+           			ArrayList<UserDTO> title_lists = userdao.getList(pageNumber);%>
            			<ul>
             			<li class="font_head">
                 			<span>회원 번호</span>
@@ -163,54 +201,34 @@
 
            <% } %>
                   </ul>
+                <!-- 공지사항 이전, 다음 페이지 -->
+         		<div class="numCheck">
+         			<%
+				if(pageNumber != 1) {
+					
+					%>
+				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=member">이전</a>
+					<%
+				} if(userdao.nextPage(pageNumber + 1)) {
+					
+					%>
+				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=member">다음</a>
+					<%
+				}
+					%>
+        	</div>
+                  
            <% }%>
            
-
-        <div class="numCheck">
-            <a href="#">&lt;</a>
-            <a href="#">&gt;</a>
-            <ol>
-                <li>
-                    <a href="#">1</a>
-                </li>
-                <li>
-                    <a href="#">2</a>
-                </li>
-                <li>
-                    <a href="#">3</a>
-                </li>
-                <li>
-                    <a href="#">4</a>
-                </li>
-                <li>
-                    <a href="#">5</a>
-                </li>
-                <li>
-                    <a href="#">6</a>
-                </li>
-                <li>
-                    <a href="#">7</a>
-                </li>
-                <li>
-                    <a href="#">8</a>
-                </li>
-                <li>
-                    <a href="#">9</a>
-                </li>
-                <li>
-                    <a href="#">10</a>
-                </li>
-            </ol>
-        </div>
         <% 
        	// type이 no일 경우
         if(contentType.equals("no")){ 
-        	// id가 admin이면 글 쓰기 버튼을 보여줌
-			if(user.equals("admin")){ %>
+        	// Auth가 staff면 글 쓰기 버튼을 보여줌
+			if(Auth == null|| Auth.equalsIgnoreCase("staff")){ %>
         		<div class="write_notice">
             		<a href="form.jsp?type=notice">글쓰기</a>
         		</div>
-        	<% } else { %>
+        	<% } else if(Auth.equals("staff")) { %>
         		
         	<%}
 			// type이 co일 경우
@@ -224,15 +242,13 @@
         		</div>
         	<% }
         	//type이 mem일 경우
-        } else if(contentType.equals("mem")) {
-       	 if(user.equals("admin")){ %>
+        } else if(contentType.equals("mem")) { %>
         		<div class="write_notice">
             		<a href="sign_up.jsp?type=new">회원 추가</a>
         		</div>
         	<% } else { %>
         		
-        	<%}
-        		 } %>
+        	<%} %>
     </section>
 
 <jsp:include page="/components/footer.jsp"></jsp:include>

@@ -124,10 +124,11 @@ public class noticeDAO {
 		return list; 
 		
 	}
-	public boolean nextPage(int pageNumber) {  //게시글이 10개 아래일경우 페이징처리를 위해서 존재하는 함수
-		String SQL = "SELECT * FROM notice WHERE no_id < ?";
+	public boolean nextPage(int pageNumber) throws SQLException {  //게시글이 10개 아래일경우 페이징처리를 위해서 존재하는 함수
+		String SQL = "select * from notice where no_id < ?";
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -135,7 +136,11 @@ public class noticeDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} finally {
+			rs.close();
+			JDBCUtil.close(rs, pstmt, conn);
+		} 
+		
 		return false; 
 	}
 	
