@@ -137,7 +137,7 @@
 						for(int i = 0; i < memberlist.size(); i++) {
 					%>
                     <tr>
-                        <th class="title-ellipsis"><a href="pages/view_content.jsp?id=<%=memberlist.get(i).getUserRow()%>&type=community"><%=memberlist.get(i).getUserName()%></a></th>
+                        <th class="title-ellipsis"><a href="${pageContext.request.contextPath}/pages/user_profile.jsp?id=<%= memberlist.get(i).getUserRow()%>"><%=memberlist.get(i).getUserName()%></a></th>
                     </tr>
                     <%
 						}

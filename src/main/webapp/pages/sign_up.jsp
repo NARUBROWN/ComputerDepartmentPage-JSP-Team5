@@ -85,10 +85,9 @@
                         <%
                         	// 현재 유저 권한 받아오기
 							String userAuth = (String) session.getAttribute("userAuth");
-							
+
                             // 현재 유저에게 권한이 없을때 (새로 가입하는 상황)
            					if(userAuth == null){ %>
-           					
            						<input type="hidden" name="userAuth" value="student">
            					<%
            					// 현재 유저가 관리자일때 (관리자가 계정을 생성하는 상황)

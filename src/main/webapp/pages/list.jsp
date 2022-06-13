@@ -195,7 +195,7 @@
            	
 			<li>
                 <span><%= title_lists.get(i).getUserRow() %></span>
-                <span><a href="view_content.jsp?id=<%= title_lists.get(i).getUserRow() %>&type=community"><%= title_lists.get(i).getUserID() %></a></span>
+                <span><a href="user_profile.jsp?id=<%= title_lists.get(i).getUserRow()%>"><%= title_lists.get(i).getUserID() %></a></span>
                 <span><%= title_lists.get(i).getUserName() %></span>
                 <span><%= title_lists.get(i).getUserAuth() %></span>
             </li>
@@ -226,11 +226,11 @@
         if(contentType.equals("no")){ 
         	// Auth가 staff면 글 쓰기 버튼을 보여줌
 			if(Auth == null|| Auth.equalsIgnoreCase("staff")){ %>
+        		
+        	<% } else if(Auth.equals("staff")) { %>
         		<div class="write_notice">
             		<a href="form.jsp?type=notice">글쓰기</a>
         		</div>
-        	<% } else if(Auth.equals("staff")) { %>
-        		
         	<%}
 			// type이 co일 경우
         }else if(contentType.equals("co")){

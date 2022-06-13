@@ -146,7 +146,7 @@ public class communityDAO {
 	}
 	
 	
-	
+	// 커뮤니티 게시글 가져오기
 	public communityDTO getCommunity(int co_id) {
 		String sql = "select * from community where co_id = ?";
 		try { 
@@ -170,5 +170,23 @@ public class communityDAO {
 			JDBCUtil.close(rs, pstmt, conn);
 		}
 		return null; 
+	}
+	
+	
+	// 유저 정보 삭제
+	public boolean deleteUser(int userRow) {
+		String sql = "delete from user where _id=?";
+			try {
+				conn = JDBCUtil.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userRow);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				JDBCUtil.close(pstmt, conn);
+			}
+		return true; //데이터베이스 오류
 	}
 }

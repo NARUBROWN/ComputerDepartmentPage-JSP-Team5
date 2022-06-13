@@ -1,5 +1,4 @@
-<%@page import="user.UserDAO"%>
-<%@page import="user.UserDTO"%>
+<%@page import="user.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -149,6 +148,8 @@
 				String userAuth = user.getAuth(userDTO.getUserID());
 				// getName로 String 이름 리턴 받아서 userName으로 대입
 				String userName = user.getName(userDTO.getUserID());
+				// getID로 String 이름 리턴 받아서 userName으로 대입
+				String userRow = user.getID(userDTO.getUserID());
 				
 				// setAttribute userAuth
 				session.setAttribute("userAuth", userAuth);
@@ -156,6 +157,8 @@
 				session.setAttribute("userID", userDTO.getUserID());
 				// setAttribute userName
 				session.setAttribute("userName", userName);
+				// setAttribute userRow
+				session.setAttribute("userRow", userRow);
 				
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
@@ -212,8 +215,16 @@
 		}
 	}
 	
+	// user 정보 수정
+	else if(action.equals("user-update")){
+		if(user.updateUser(userDTO)){
+			response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());
+		} else {
+			throw new Exception("DB입력 오류");
+		}
+	
 	// notice DB 정보 삭제
-	else if(action.equals("no-delete")) {
+	}else if(action.equals("no-delete")) {
 		String no_con_id = request.getParameter("id");
 		int no_id = Integer.parseInt(no_con_id);
 		if(notice.deleteNotice(no_id)){
@@ -221,10 +232,35 @@
 		} else { 
 			throw new Exception("DB입력 오류");
 		}
-	} 
+	 
+	
+	// user 계정 삭제
+	}else if(action.equals("pro-delete")) {
+		String userRow = request.getParameter("userRow");
+		int userRowInt = Integer.parseInt(userRow);
+		String authType = request.getParameter("type");
+		
+		if(authType.equals("student")){
+			if(user.deleteUser(userRowInt)){
+				session.invalidate();
+				response.sendRedirect("index.jsp");
+			} else { 
+				throw new Exception("DB입력 오류");
+			}
+		}else if(authType.equals("staff")){
+			if(user.deleteUser(userRowInt)){
+				response.sendRedirect("pages/list.jsp?type=member");
+			} else { 
+				throw new Exception("DB입력 오류");
+			}
+		}else{
+			throw new Exception("DB입력 오류");
+		}
+		
+	 
 	
 	// community DB 정보 삭제
-	else if(action.equals("co-delete")) {
+	}else if(action.equals("co-delete")) {
 		String co_con_id = request.getParameter("id");
 		int co_id = Integer.parseInt(co_con_id);
 		if(community.deleteCommunity(co_id)){

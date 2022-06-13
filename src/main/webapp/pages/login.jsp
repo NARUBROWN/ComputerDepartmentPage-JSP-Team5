@@ -47,7 +47,6 @@
             </form>
             <div class="sub">
                 <span><a href="sign_up.jsp"><button class="signBtn">회원가입</button></a></span>
-                <span><a href="sign_up.jsp"><button class="findBtn">아이디/비밀번호찾기</button></a></span>
             </div>
         </div>
     </section>
