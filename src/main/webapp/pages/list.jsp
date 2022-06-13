@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    errorPage="./pages/404errorPage.jsp" pageEncoding="UTF-8" %>
     <%@ page import="notice.*" %>
     <%@ page import="user.*" %>
     <%@ page import="community.*" %>
@@ -89,6 +89,7 @@
     <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 
     <section class="notice_table">
+
         <h2><%= contentTypeName %></h2>
             <%	
          	// notice가 파라미터로 넘어왔을 경우

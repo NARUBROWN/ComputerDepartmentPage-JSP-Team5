@@ -9,8 +9,8 @@
         <nav>
             <a href="#">학과소개</a>
             <a href="#">교육과정</a>
-            <a href="#">졸업/진로</a>
-            <a href="${pageContext.request.contextPath}/pages/notice.jsp">재능광장</a>
+            <a href="${pageContext.request.contextPath}/pages/list.jsp?type=notice">졸업/진로</a>
+            <a href="${pageContext.request.contextPath}/pages/list.jsp?type=community">재능광장</a>
         </nav>
     </header>
         <!--드롭다운 네비게이션 영역-->
