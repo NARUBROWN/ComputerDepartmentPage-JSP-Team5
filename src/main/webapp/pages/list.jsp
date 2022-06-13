@@ -1,7 +1,9 @@
+<%@page import="user.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     <%@ page import="notice.*" %>
     <%@ page import="community.*" %>
+    <%@ page import="admin.*" %>
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="java.sql.ResultSet" %>
 <!DOCTYPE html>
@@ -54,6 +56,10 @@
 			contentTypeName = "커뮤니티";
 			webcontrolPush = "commnuity";
 			contentType = "co";
+		} else if(request.getParameter("type").equals("member")) {
+			contentTypeName = "회원";
+			webcontrolPush = "member";
+			contentType = "mem";
 		}
 		
 		
@@ -67,19 +73,20 @@
 
     <section class="notice_table">
         <h2><%= contentTypeName %></h2>
-        <ul>
-            <li class="font_head">
-                <span>번호</span>
-                <span>제목</span>
-                <span>작성일</span>
-                <span>작성자</span>
-            </li>
             <%	
          	// notice가 파라미터로 넘어왔을 경우
             if(contentType.equals("no")){ 
             	noticeDAO maintitle = new noticeDAO();
-				ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);
-				for(int i = 0; i < title_lists.size(); i++) {
+				ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);%>
+				<ul>
+            		<li class="font_head">
+                		<span>번호</span>
+                		<span>제목</span>
+                		<span>작성일</span>
+                		<span>작성자</span>
+           			 </li>
+      
+				<% for(int i = 0; i < title_lists.size(); i++) {
 					// notice 요소 반영
             %>
             <li>
@@ -88,14 +95,24 @@
                 <span><%=title_lists.get(i).getNo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getNo_author()%></span>
             </li>	
-            <% }
-				// community가 파라미터로 넘어왔을 경우
+            <% } %>
+         		 </ul>
+				<%// community가 파라미터로 넘어왔을 경우
             	} else if (contentType.equals("co")){ 
             		communityDAO  maintitle = new communityDAO();
-					ArrayList<communityDTO> title_lists = maintitle.getList(pageNumber);
-					for(int i = 0; i < title_lists.size(); i++) {
+					ArrayList<communityDTO> title_lists = maintitle.getList(pageNumber);%>
+					<ul>
+					 <li class="font_head">
+	                	<span>번호</span>
+	                	<span>제목</span>
+	                	<span>작성일</span>
+	                	<span>작성자</span>
+	            	</li>
+					
+					<% for(int i = 0; i < title_lists.size(); i++) {
 						// community 요소 반영
             %>
+          
             <li>
                 <span><%=title_lists.get(i).getCo_id()%></span>
                 <span><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
@@ -103,13 +120,35 @@
                 <span><%=title_lists.get(i).getCo_author()%></span>
             </li>
             	
-           <% }
-           		} else { %>
-            	
+           			<% 	}%>
+           			</ul>
+           			<% 
+				// 멤버일 경우
+           		} else if (contentType.equals("mem")){ 
+           			adminDAO admindao = new adminDAO();
+           			ArrayList<UserDTO> title_lists = admindao.getList(pageNumber);%>
+           			<ul>
+            			<li class="font_head">
+                			<span>회원 번호</span>
+                			<span>회원 아이디</span>
+                			<span>회원 이름</span>
+                			<span>회원 권한</span>
+           				 </li>
+           			<% for(int i = 0; i < title_lists.size(); i++){
+           		%>
+           	
+			<li>
+                <span><%= title_lists.get(i).getUserRow() %></span>
+                <span><a href="view_content.jsp?id=<%= title_lists.get(i).getUserRow() %>&type=community"><%= title_lists.get(i).getUserID() %></a></span>
+                <span><%= title_lists.get(i).getUserName() %></span>
+                <span><%= title_lists.get(i).getUserAuth() %></span>
+            </li>
+
            <% } %>
-            	
+                  </ul>
+           <% }%>
            
-        </ul>
+
         <div class="numCheck">
             <a href="#">&lt;</a>
             <a href="#">&gt;</a>

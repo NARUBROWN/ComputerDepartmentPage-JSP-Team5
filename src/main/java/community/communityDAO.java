@@ -97,7 +97,6 @@ public class communityDAO {
 	}
 	
 	
-	
 	public ArrayList<communityDTO> getList(int pageNumber) throws SQLException { //co_id가 내림차순으로 10개까지만 가져온다
 		String SQL = "SELECT * FROM community WHERE co_id < ? ORDER BY co_id DESC LIMIT 10";
 		ArrayList<communityDTO> list = new ArrayList<communityDTO>();
@@ -124,6 +123,8 @@ public class communityDAO {
 		return list; 
 		
 	}
+	
+	
 	public boolean nextPage(int pageNumber) {  //게시글이 10개 아래일경우 페이징처리를 위해서 존재하는 함수
 		String SQL = "SELECT * FROM community WHERE co_id < ?";
 		try {

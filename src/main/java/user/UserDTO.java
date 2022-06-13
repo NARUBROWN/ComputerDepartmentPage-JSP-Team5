@@ -1,7 +1,8 @@
 package user;
 
 public class UserDTO {
-
+		
+		private int userRow;
 		private String userID;
 		private String userPassword;
 		private String userName;
@@ -9,6 +10,14 @@ public class UserDTO {
 		private String userGender;
 		private String userAuth;
 		
+		
+		
+		public int getUserRow() {
+			return userRow;
+		}
+		public void setUserRow(int userRow) {
+			this.userRow = userRow;
+		}
 		public String getUserID() {
 			return userID;
 		}
