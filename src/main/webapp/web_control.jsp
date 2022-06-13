@@ -87,7 +87,14 @@
 				script.close();
 				return;
 			} 
-		} else if (result == -1){ out.print("예외발생");}
+		} else if (result == -1){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('중복된 ID 입니다.')");
+			script.println("</script>");
+			script.close();
+			return;
+		}
 	}
 	
 	// notice DB에 정보 입력
