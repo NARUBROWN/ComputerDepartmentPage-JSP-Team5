@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
     <%@ page import="notice.*" %>
-    <%@ page import="notice.noticeDTO" %>
+    <%@ page import="community.*" %>
     <%@ page import="java.util.ArrayList" %>
+    <%@ page import="java.sql.ResultSet" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,10 +29,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-    <title>공지사항 게시글 목록</title>
-</head>
-<body>
-	<%
+    
+    	<%
+	
 		// 세션에서 userID 가져오는코드
 		String user = (String) session.getAttribute("userID");
 	
@@ -40,13 +40,33 @@
 		if (request.getParameter("pageNumber") != null) {
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
+		
+		String contentTypeName = "";
+		String webcontrolPush = "";
+		String contentType = "";
+		
+		if(request.getParameter("type").equals("notice")){
+			contentTypeName = "공지사항";
+			webcontrolPush = "notice";
+			contentType = "no";
+			
+		} else if(request.getParameter("type").equals("community")) {
+			contentTypeName = "커뮤니티";
+			webcontrolPush = "commnuity";
+			contentType = "co";
+		}
+		
+		
 	%>
 	
-    <!-- topBar와 header -->
+    <title><%= contentTypeName %> 게시글 목록</title>
+</head>
+<body>
+	<!-- topBar와 header -->
     <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 
     <section class="notice_table">
-        <h2>공지사항</h2>
+        <h2><%= contentTypeName %></h2>
         <ul>
             <li class="font_head">
                 <span>번호</span>
@@ -54,20 +74,41 @@
                 <span>작성일</span>
                 <span>작성자</span>
             </li>
-            <%
-						noticeDAO maintitle = new noticeDAO();
-						ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);
-						for(int i = 0; i < title_lists.size(); i++) {
+            <%	
+         	// notice가 파라미터로 넘어왔을 경우
+            if(contentType.equals("no")){ 
+            	noticeDAO maintitle = new noticeDAO();
+				ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);
+				for(int i = 0; i < title_lists.size(); i++) {
+					// notice 요소 반영
             %>
             <li>
                 <span><%=title_lists.get(i).getNo_id()%></span>
                 <span><a href="view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></span>
                 <span><%=title_lists.get(i).getNo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getNo_author()%></span>
-            </li>
-            <%
-            }
+            </li>	
+            <% }
+				// community가 파라미터로 넘어왔을 경우
+            	} else if (contentType.equals("co")){ 
+            		communityDAO  maintitle = new communityDAO();
+					ArrayList<communityDTO> title_lists = maintitle.getList(pageNumber);
+					for(int i = 0; i < title_lists.size(); i++) {
+						// community 요소 반영
             %>
+            <li>
+                <span><%=title_lists.get(i).getCo_id()%></span>
+                <span><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
+                <span><%=title_lists.get(i).getCo_date().replace("-", "/")%></span>
+                <span><%=title_lists.get(i).getCo_author()%></span>
+            </li>
+            	
+           <% }
+           		} else { %>
+            	
+           <% } %>
+            	
+           
         </ul>
         <div class="numCheck">
             <a href="#">&lt;</a>
@@ -105,17 +146,28 @@
                 </li>
             </ol>
         </div>
-         <% 
-        	// user에 로그인 정보가 없으면 글쓰기 버튼이 안 보임
-        	if(user == null){
-        	} else  {
-        %>
-        <div class="write_notice">
-            <a href="form.jsp?type=notice">글쓰기</a>
-        <%
-        	}
-        %>
-        </div>
+        <% 
+       	// type이 no일 경우
+        if(contentType.equals("no")){ 
+        	// id가 admin이면 글 쓰기 버튼을 보여줌
+			if(user.equals("admin")){ %>
+        		<div class="write_notice">
+            		<a href="form.jsp?type=notice">글쓰기</a>
+        		</div>
+        	<% } else { %>
+        		
+        	<%}
+			// type이 co일 경우
+        }else if(contentType.equals("co")){
+        	// user가 null일 경우
+        	if(user == null){ 
+        	 	// 아무것도 보여주지 않음
+        	 }else{ %>
+        		<div class="write_notice">
+            		<a href="form.jsp?type=community">글쓰기</a>
+        		</div>
+        	<% }
+        }%>
     </section>
 
 <jsp:include page="/components/footer.jsp"></jsp:include>
