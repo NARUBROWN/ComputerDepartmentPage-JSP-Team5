@@ -35,4 +35,21 @@ public class UserDAO {
 			}
 			return -2; // db오류
 		}
+	public int join(String userID,String userPassword,String userName,String userEmail,String userGender,String userAuth) {
+		String SQL = "INSERT INTO USER VALUES (?,?,?,?,?,?)";
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			pstmt.setString(2, userPassword);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, userEmail);
+			pstmt.setString(5, userGender);
+			pstmt.setString(6, userAuth);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
