@@ -41,7 +41,7 @@
 	<jsp:include page="/components/header.jsp"></jsp:include>
 
     <section class="notice_table">
-        <h2>공지사항</h2>
+        <h2>커뮤니티</h2>
         <ul>
             <li class="font_head">
                 <span>번호</span>
