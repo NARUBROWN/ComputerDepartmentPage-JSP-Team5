@@ -57,7 +57,7 @@
 	
 		<% 
 		// 세션에서 userID 가져오는코드
-		String user = (String) session.getAttribute("userID");
+		String user = (String) session.getAttribute("userName");
 		
 		// 오늘 날짜 받는 부분
 		Date date = new Date();

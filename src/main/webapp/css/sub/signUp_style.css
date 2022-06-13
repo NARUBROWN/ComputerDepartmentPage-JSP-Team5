@@ -70,6 +70,7 @@ h3 {
 }
 
 .int {
+	font-family: sans-serif;
     display: block;
     position: relative;
     width: 100%;
@@ -77,6 +78,7 @@ h3 {
     border: none;
     background: #fff;
     font-size: 15px;
+    font-family: sans-serif;
 }
 
 .box.int_id {

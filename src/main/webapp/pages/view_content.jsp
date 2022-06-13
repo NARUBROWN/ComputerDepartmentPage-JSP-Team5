@@ -109,26 +109,27 @@
         </ul>
         
         <% 
-        	// user에 로그인 정보가 없으면 글쓰기 버튼이 안 보임
+     		// 현재 권한 가져오기
+			String Auth = (String) session.getAttribute("userAuth");
         	
         	// type이 공지사항 경우
         	if(typeName.equals("notice")){
-        		if(user.equals("admin")) { %>
-				 <div class="write_notice">
+        		// staff일 경우
+        		if(user == null || Auth.equals("student")) { %>
+				 <!--  user에 로그인 정보가 없거나 학생이면 버튼이 안 보임 -->
+        		<% } else if(Auth.equals("staff"))  { %>			
+        		<div class="write_notice">
             		<a href="<%= query + id + type %>">수정</a>
         		</div>
             	<div class="write_notice">
             		<a href="${pageContext.request.contextPath}/web_control.jsp?action=<%= parameter %>&id=<%= id %>">삭제</a>
         		</div>	
-        		<% } else { %>
-        			
         		<% }
         		
         		// type이 커뮤니티일 경우
         	} else if (typeName.equals("community")) {
-        		if(user == null){ %>
-        			
-        		<% } else if(user.equals(author) ||  user.equals("admin")){ %>
+        		if(user == null){ %>		
+        		<% } else if(user.equals(author) ||  Auth.equals("staff")){ %>
         		<div class="write_notice">
             		<a href="<%= query + id + type %>">수정</a>
         		</div>

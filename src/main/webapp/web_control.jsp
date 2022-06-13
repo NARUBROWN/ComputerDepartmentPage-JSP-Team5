@@ -73,7 +73,7 @@
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('회원가입에 성공했습니다.')");
-				script.println("location.href='index.jsp';");
+				script.println("location.href='pages/login.jsp';");
 				script.println("</script>");
 				script.close();
 				return;
@@ -147,8 +147,16 @@
 				
 				// getAuth로 String 권한 리턴 받아서 userAuth로 대입
 				String userAuth = user.getAuth(userDTO.getUserID());
+				// getName로 String 이름 리턴 받아서 userName으로 대입
+				String userName = user.getName(userDTO.getUserID());
+				
+				// setAttribute userAuth
 				session.setAttribute("userAuth", userAuth);
+				// setAttribute userID
 				session.setAttribute("userID", userDTO.getUserID());
+				// setAttribute userName
+				session.setAttribute("userName", userName);
+				
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("location.href = 'index.jsp'");
@@ -228,8 +236,9 @@
 	
 	// adminPage 로 보내는 로직
 	else if(action.equals("adminPage")) {
-		String userID = (String)session.getAttribute("userID");
-		if(userID.equals("admin")) {
+		// 유저권한 받아오기
+		String Auth = (String) session.getAttribute("userAuth");
+		if(Auth.equals("staff")) {
 		%><jsp:forward page="admin/admin_index.jsp"/><%
 		} else {
 			// 오류 페이지로 보내야 함
