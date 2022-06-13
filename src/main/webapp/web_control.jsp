@@ -19,21 +19,30 @@
 <jsp:setProperty property="*" name="userDTO" />
 
 <% 
-	// 바로 이전의 form의 action 값에 따라서 값이 바뀝니다.
+	// action 파라미터 처리
 	String action = request.getParameter("action");
 
 	if(action.equals("list")) {
 		// 빈자리
 	}
+	
+	// notice DB에 정보 입력
 	else if(action.equals("notice-insert")) {
-		// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
-		if(notice.insertDB(noticeDTO)) {
+		//user 정보를 불러옴
+		String userID = (String)session.getAttribute("userID");
+		//ID가 admin이면 조건 통과
+		if(userID.equals("admin")) {
+			// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
+			notice.insertDB(noticeDTO);
 			// 처리가 완료되면 메인화면으로 다시 변경
 			response.sendRedirect("pages/notice_list.jsp");
 		} else {
+			// 403 오류로 보내야함
 			throw new Exception("DB입력 오류");
 		}
 	}
+	
+	// community DB애 정보 입력
 	else if(action.equals("commnuity-insert")) {
 		// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
 		if(main.communityInsertDB(communityDTO)) {
@@ -43,9 +52,13 @@
 			throw new Exception("DB입력 오류");
 		}
 	}
+	
+	
 	else if(action.equals("edit")) {
 		// 빈자리
 	}
+	
+	// 로그인 로직 
 	else if(action.equals("login")) {
 		String userID = null;
 		if(session.getAttribute("userID") != null) {
@@ -88,24 +101,35 @@
 			script.println("</script>");
 			}
 	}
-	// web_control.jsp?action=logout 파라미터를 통해서 로그아웃 액션 처리 시켜줌
+	
+	
+	// 로그아웃 로직 
 	else if(action.equals("logout")) {
 			session.invalidate();
 			response.sendRedirect("index.jsp");
-	} else if(action.equals("notice-update")){
+	} 
+	
+	// notice DB 정보 수정
+	else if(action.equals("notice-update")){
 		if(notice.updateNotice(noticeDTO)) {
 			// 처리가 완료되면 쓰던 페이지로 다시 변경
 			response.sendRedirect("pages/view_content.jsp?id=" + noticeDTO.getNo_id()+ "&type=notice");
 		} else {
 			throw new Exception("DB입력 오류");
 		}
-	} else if(action.equals("community-update")){
+	} 
+	
+	// community DB 정보 수정
+	else if(action.equals("community-update")){
 		if(community.updateCommunity(communityDTO)){
 			response.sendRedirect("pages/view_content.jsp?id=" + communityDTO.getCo_id()+ "&type=community");
 		} else {
 			throw new Exception("DB입력 오류");
 		}
-	}else if(action.equals("no-delete")) {
+	}
+	
+	// notice DB 정보 삭제
+	else if(action.equals("no-delete")) {
 		String no_con_id = request.getParameter("id");
 		int no_id = Integer.parseInt(no_con_id);
 		if(notice.deleteNotice(no_id)){
@@ -113,13 +137,27 @@
 		} else { 
 			throw new Exception("DB입력 오류");
 		}
-	} else if(action.equals("co-delete")) {
+	} 
+	
+	// community DB 정보 삭제
+	else if(action.equals("co-delete")) {
 		String co_con_id = request.getParameter("id");
 		int co_id = Integer.parseInt(co_con_id);
 		if(community.deleteCommunity(co_id)){
 			response.sendRedirect("pages/community_list.jsp");
 		} else { 
 			throw new Exception("DB입력 오류");
+		}
+	} 
+	
+	// adminPage 로 보내는 로직
+	else if(action.equals("adminPage")) {
+		String userID = (String)session.getAttribute("userID");
+		if(userID.equals("admin")) {
+		%><jsp:forward page="admin/admin_index.jsp"/><%
+		} else {
+			// 오류 페이지로 보내야 함
+			response.sendRedirect("index.jsp");
 		}
 	}
 %>

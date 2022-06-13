@@ -7,10 +7,10 @@
             <img src="${pageContext.request.contextPath}/resource/img/header_logo.png" alt="학교로고">
         </a>
         <nav>
-            <a href="#">학과소개</a>
-            <a href="#">교육과정</a>
-            <a href="${pageContext.request.contextPath}/pages/notice_list.jsp">졸업/진로</a>
-            <a href="${pageContext.request.contextPath}/pages/community_list.jsp">재능광장</a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="${pageContext.request.contextPath}/pages/notice.jsp">관리도구</a>
         </nav>
     </header>
         <!--드롭다운 네비게이션 영역-->
@@ -19,16 +19,16 @@
             <div class="dropNavBackground1" id="dropdownNav1">
                 <ul>
                     <li>
-                        <a href="#">학과소개</a>
+                        <a href="#"></a>
                     </li>
                     <li>
-                        <a href="#">교수소개</a>
+                        <a href="#"></a>
                     </li>
                     <li>
-                        <a href="#">실습실안내</a>
+                        <a href="#"></a>
                     </li>
                     <li>
-                        <a href="#">오시는 길</a>
+                        <a href="#">관리도구</a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +47,7 @@
             <div class="dropNavBackground3" id="dropdownNav3">
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/pages/list.jsp?type=notice">공지사항</a>
+                        <a href="${pageContext.request.contextPath}/pages/notice_list.jsp">공지사항</a>
                     </li>
                     <li>
                         <a href="#">학생회 임원단</a>
@@ -67,7 +67,13 @@
             <div class="dropNavBackground4" id="dropdownNav4">
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/pages/list.jsp?type=community">커뮤니티</a>
+                        <a href="${pageContext.request.contextPath}/pages/community_list.jsp">공지사항 게시판 관리</a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/pages/community_list.jsp">커뮤니티 게시판 관리</a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/pages/community_list.jsp">회원 관리</a>
                     </li>
                 </ul>
             </div>

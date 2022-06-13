@@ -84,8 +84,9 @@
 <title><%= mainTitle %> 게시글 수정</title>
 </head>
 <body>
-	<jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
+
+	<!-- topBar와 header -->
+    <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 		
 	<section class="notice_table">
         <h2><%= mainTitle %> (수정)</h2>

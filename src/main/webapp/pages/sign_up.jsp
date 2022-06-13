@@ -30,76 +30,74 @@
 </head>
 <body>
     <jsp:include page="/components/topbar.jsp"></jsp:include>
-	<jsp:include page="/components/header.jsp"></jsp:include>
-	
+   <jsp:include page="/components/header.jsp"></jsp:include>
+   
             <!-- 회원가입 -->
             <div id="wrapper">
-                <div id="content">
-                    <div>
-                        <h3 class="join_title">
-                            <label for="id">아이디</label>
-                        </h3>
-                        <span class="box">
-                            <input type="text" id="id" class="int" maxlength="20">
-                        </span>
-                    </div>
+                <form method="post" action="../joinAction.jsp">
+                    <div id="content">
 
-                    <div>
-                        <h3 class="join_title"><label for="pswd1">비밀번호</label></h3>
-                        <span class="box int_pass">
-                            <input type="text" id="pswd1" class="int" maxlength="20">
-                        </span>
-                    </div>
-
-                    <div>
-                        <h3 class="join_title"><label for="name">이름</label></h3>
-                        <span class="box int_name">
-                            <input type="text" id="name" class="int" maxlength="20">
-                        </span>
-                    </div>
-
-                    <div>
-                        <h3 class="join_title">
-                            <label for="id">이메일</label>
-                        </h3>
-                        <span class="box int_id">
-                            <input type="text" id="id" class="int" maxlength="20">
-                            <span class="step_url">
-                                <select id="email" class="select">
-                                    <option>도메인 선택</option>
-                                    <option value="naver">@naver.com</option>
-                                    <option value="daum">@daum.net</option>
-                                </select>   
+                        <div>
+                            <h3 class="join_title">
+                                <label for="id">아이디</label>
+                            </h3>
+                            <span class="box">
+                                <input type="text" id="id" class="int" maxlength="20" name="userID">
                             </span>
-                        </span>
-                    </div>
+                        </div>
 
-                    <div>
-                        <h3 class="join_title"><label for="gender">성별</label></h3>
-                        <span class="box gender_code">
-                            <select id="gender" class="sel">
-                                <option>성별</option>
-                                <option value="M">남자</option>
-                                <option value="F">여자</option>
-                            </select>                            
-                        </span>
-                    </div>
+                        <div>
+                            <h3 class="join_title"><label for="pswd1">비밀번호</label></h3>
+                            <span class="box int_pass">
+                                <input type="text" id="pswd1" class="int" maxlength="20" name="userPassword">
+                            </span>
+                        </div>
 
-                    <div>
-                        <h3 class="join_title"><label for="auth">구분</label></h3>
-                        <span class="box gender_code">
-                            <select id="auth" class="sel">
-                                <option>구분</option>
-                                <option value="student">학생</option>
-                                <option value="staff">교직원</option>
-                            </select>                            
-                        </span>
-                    </div>
+                        <div>
+                            <h3 class="join_title"><label for="name">이름</label></h3>
+                            <span class="box int_name">
+                                <input type="text" id="name" class="int" maxlength="20" name="userName">
+                            </span>
+                        </div>
 
-                    <div class="btnJoin">
-                        <input type="submit" value="가입하기">
-                    </div>
-                </div> 
+                        <div>
+                            <h3 class="join_title">
+                                <label for="id">이메일</label>
+                            </h3>
+                            <span class="box int_id">
+                                <input type="text" id="id" class="int" maxlength="20" name="userEmail">
+                                <span class="step_url">
+                                </span>
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 class="join_title"><label for="gender">성별</label></h3>
+                            <span class="box gender_code">
+                                <select id="gender" class="sel" name="userGender">
+                                    <option>성별</option>
+                                    <option value="M">남자</option>
+                                    <option value="F">여자</option>
+                                </select>                            
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 class="join_title"><label for="auth">구분</label></h3>
+                            <span class="box gender_code">
+                                <select id="auth" class="sel" name="userAuth">
+                                    <option>구분</option>
+                                    <option value="student">학생</option>
+                                    <option value="staff">교직원</option>
+                                </select>                            
+                            </span>
+                        </div>
+
+                        <div class="btnJoin">
+                            <input type="submit" value="가입하기">
+                        </div>
+                    </div> 
+                </form>
             </div>
     <jsp:include page="/components/footer.jsp"></jsp:include>
     <script>
