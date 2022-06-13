@@ -29,12 +29,13 @@
     <title>로그인 페이지</title>
 </head>
 <body>
-    <jsp:include page="/components/topbar.jsp"></jsp:include>
+   <jsp:include page="/components/topbar.jsp"></jsp:include>
    <jsp:include page="/components/header.jsp"></jsp:include>
    
             <!-- 회원가입 -->
             <div id="wrapper">
-                <form method="post" action="../joinAction.jsp">
+                <form method="post" action="../web_control.jsp">
+                <input type="hidden" name="action" value="signup">
                     <div id="content">
 
                         <div>
@@ -81,20 +82,32 @@
                                 </select>                            
                             </span>
                         </div>
-
-                        <div>
-                            <h3 class="join_title"><label for="auth">구분</label></h3>
-                            <span class="box gender_code">
-                                <select id="auth" class="sel" name="userAuth">
-                                    <option>구분</option>
-                                    <option value="student">학생</option>
-                                    <option value="staff">교직원</option>
-                                </select>                            
-                            </span>
-                        </div>
+                        <%
+							String userAuth = (String) session.getAttribute("userAuth");
+           					if(userAuth == null){
+           						
+           					} else if(userAuth.equals("staff")) {
+           					 %>
+                				<div>
+                                 <h3 class="join_title"><label for="auth">구분</label></h3>
+                                 <span class="box gender_code">
+                                     <select id="auth" class="sel" name="userAuth">
+                                         <option>구분</option>
+                                         <option value="student">학생</option>
+                                         <option value="staff">교직원</option>
+                                     </select>                            
+                                 </span>
+                             </div>
+                					<%
+           						
+           					}else { }%>
 
                         <div class="btnJoin">
+                        <% if(request.getParameter("type") == null){ %>
                             <input type="submit" value="가입하기">
+                         <% } else if(request.getParameter("type").equals("new")){ %>
+                        	<input type="submit" value="생성하기">
+                        <% }%> 
                         </div>
                     </div> 
                 </form>

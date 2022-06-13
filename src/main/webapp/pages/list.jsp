@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     <%@ page import="notice.*" %>
+    <%@ page import="user.*" %>
     <%@ page import="community.*" %>
+    <%@ page import="admin.*" %>
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="java.sql.ResultSet" %>
+    <%@ page import="java.io.PrintWriter" %>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,25 +45,44 @@
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
 		
+		// 변수 초기화
 		String contentTypeName = "";
 		String webcontrolPush = "";
 		String contentType = "";
 		
+		// type이 notice일 경우
 		if(request.getParameter("type").equals("notice")){
-			contentTypeName = "공지사항";
+			contentTypeName = "공지사항 게시글";
 			webcontrolPush = "notice";
 			contentType = "no";
-			
+		
+		// type이 community일 경우
 		} else if(request.getParameter("type").equals("community")) {
-			contentTypeName = "커뮤니티";
+			contentTypeName = "커뮤니티 게시글";
 			webcontrolPush = "commnuity";
 			contentType = "co";
+			
+		// type이 member일 경우
+		} else if(request.getParameter("type").equals("member")) {
+			// 관리자가 접근 할 경우
+			if(user.equals("admin")) {
+				contentTypeName = "회원 정보";
+				webcontrolPush = "member";
+				contentType = "mem";
+				// 그렇지 않을 경우
+			} else { 
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('접근 권한이 없습니다.')");
+				script.println("history.back()"); // 전으로 돌리는 스크립트
+				script.println("</script>");
+			}
 		}
 		
 		
 	%>
 	
-    <title><%= contentTypeName %> 게시글 목록</title>
+    <title><%= contentTypeName %> 목록</title>
 </head>
 <body>
 	<!-- topBar와 header -->
@@ -68,19 +91,20 @@
     <section class="notice_table">
 
         <h2><%= contentTypeName %></h2>
-        <ul>
-            <li class="font_head">
-                <span>번호</span>
-                <span>제목</span>
-                <span>작성일</span>
-                <span>작성자</span>
-            </li>
             <%	
          	// notice가 파라미터로 넘어왔을 경우
             if(contentType.equals("no")){ 
             	noticeDAO maintitle = new noticeDAO();
-				ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);
-				for(int i = 0; i < title_lists.size(); i++) {
+				ArrayList<noticeDTO> title_lists = maintitle.getList(pageNumber);%>
+				<ul>
+            		<li class="font_head">
+                		<span>번호</span>
+                		<span>제목</span>
+                		<span>작성일</span>
+                		<span>작성자</span>
+           			 </li>
+      
+				<% for(int i = 0; i < title_lists.size(); i++) {
 					// notice 요소 반영
             %>
             <li>
@@ -89,14 +113,24 @@
                 <span><%=title_lists.get(i).getNo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getNo_author()%></span>
             </li>	
-            <% }
-				// community가 파라미터로 넘어왔을 경우
+            <% } %>
+         		 </ul>
+				<%// community가 파라미터로 넘어왔을 경우
             	} else if (contentType.equals("co")){ 
             		communityDAO  maintitle = new communityDAO();
-					ArrayList<communityDTO> title_lists = maintitle.getList(pageNumber);
-					for(int i = 0; i < title_lists.size(); i++) {
+					ArrayList<communityDTO> title_lists = maintitle.getList(pageNumber);%>
+					<ul>
+					 <li class="font_head">
+	                	<span>번호</span>
+	                	<span>제목</span>
+	                	<span>작성일</span>
+	                	<span>작성자</span>
+	            	</li>
+					
+					<% for(int i = 0; i < title_lists.size(); i++) {
 						// community 요소 반영
             %>
+          
             <li>
                 <span><%=title_lists.get(i).getCo_id()%></span>
                 <span><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
@@ -104,13 +138,35 @@
                 <span><%=title_lists.get(i).getCo_author()%></span>
             </li>
             	
-           <% }
-           		} else { %>
-            	
+           			<% 	}%>
+           			</ul>
+           			<% 
+				// 멤버일 경우
+           		} else if (contentType.equals("mem")){ 
+           			adminDAO admindao = new adminDAO();
+           			ArrayList<UserDTO> title_lists = admindao.getList(pageNumber);%>
+           			<ul>
+            			<li class="font_head">
+                			<span>회원 번호</span>
+                			<span>회원 아이디</span>
+                			<span>회원 이름</span>
+                			<span>회원 권한</span>
+           				 </li>
+           			<% for(int i = 0; i < title_lists.size(); i++){
+           		%>
+           	
+			<li>
+                <span><%= title_lists.get(i).getUserRow() %></span>
+                <span><a href="view_content.jsp?id=<%= title_lists.get(i).getUserRow() %>&type=community"><%= title_lists.get(i).getUserID() %></a></span>
+                <span><%= title_lists.get(i).getUserName() %></span>
+                <span><%= title_lists.get(i).getUserAuth() %></span>
+            </li>
+
            <% } %>
-            	
+                  </ul>
+           <% }%>
            
-        </ul>
+
         <div class="numCheck">
             <a href="#">&lt;</a>
             <a href="#">&gt;</a>
@@ -168,7 +224,16 @@
             		<a href="form.jsp?type=community">글쓰기</a>
         		</div>
         	<% }
-        }%>
+        	//type이 mem일 경우
+        } else if(contentType.equals("mem")) {
+       	 if(user.equals("admin")){ %>
+        		<div class="write_notice">
+            		<a href="sign_up.jsp?type=new">회원 추가</a>
+        		</div>
+        	<% } else { %>
+        		
+        	<%}
+        		 } %>
     </section>
 
 <jsp:include page="/components/footer.jsp"></jsp:include>

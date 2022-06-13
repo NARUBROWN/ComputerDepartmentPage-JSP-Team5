@@ -12,6 +12,7 @@ public class UserDAO {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 		
+	// 로그인
 	public int login(String userID, String userPassword) {
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 			try {
@@ -35,21 +36,46 @@ public class UserDAO {
 			}
 			return -2; // db오류
 		}
-	public int join(String userID,String userPassword,String userName,String userEmail,String userGender,String userAuth) {
-		String SQL = "INSERT INTO USER VALUES (?,?,?,?,?,?)";
+	
+	// 회원 가입
+	public int join(UserDTO userdto) {
+		String SQL = "INSERT INTO USER(UserID, UserPassword, userName, userEmail, userGender, userAuth) VALUES (?,?,?,?,?,?)";
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userdto.getUserID());
+			pstmt.setString(2, userdto.getUserPassword());
+			pstmt.setString(3, userdto.getUserName());
+			pstmt.setString(4, userdto.getUserEmail());
+			pstmt.setString(5, userdto.getUserGender()); 
+			pstmt.setString(6, userdto.getUserAuth());
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	//권한 가져오기
+	public String getAuth(String userID) {
+
+		String SQL = "SELECT userAuth FROM USER WHERE userID = ?";
+		String userAuth ="none";
+		
 		try {
 			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
-			pstmt.setString(2, userPassword);
-			pstmt.setString(3, userName);
-			pstmt.setString(4, userEmail);
-			pstmt.setString(5, userGender);
-			pstmt.setString(6, userAuth);
-			return pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				userAuth = rs.getString(1);
+				return userAuth;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
 		}
-		return -1;
+		return userAuth;
 	}
 }
