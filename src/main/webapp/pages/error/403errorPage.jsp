@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="../css/sub/errorPage_style.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/sub/errorPage_style.css">
     
     <link rel="apple-touch-icon" sizes="57x57" href="../resource/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../resource/favicon/apple-icon-60x60.png">
