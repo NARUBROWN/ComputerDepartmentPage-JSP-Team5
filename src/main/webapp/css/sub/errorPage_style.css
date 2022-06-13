@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'NanumSquareB';
+    src:local('NanumSquareB'), url('../../resource/font/NanumSquareB.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'NanumSquareEB';
+    src:local('NanumSquareEB'), url('../../resource/font/NanumSquareEB.otf') format('opentype');
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'NanumSquareL';
+    src:local('NanumSquareL'), url('../../resource/font/NanumSquareL.otf') format('opentype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'NanumSquareR';
+    src:local('NanumSquareR'), url('../../resource/font/NanumSquareR.otf') format('opentype');
+    font-weight: normal;
+}
+html, body{
+    font-family: "NanumSquareR", sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+.notfound{
+    position: relative;
+    height: 100vh;
+}
+.notfound .content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.content{
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    padding: 15px;
+}
+.content .error_content{
+    position: relative;
+    height: 220px;
+}
+.content .error_content h1{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 186px;
+    font-weight: 200;
+    margin: 0px;
+}
+.content h2{
+    font-size: 33px;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+.content p{
+    font-size: 16px;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+.bg_img img{
+    width: 150px;
+}
