@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
     <%@ page import="java.io.PrintWriter" %>
     <%@ page import="user.*" %>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <link type="text/css" rel="stylesheet" href="../css/normalize.css">
     <link type="text/css" rel="stylesheet" href="../css/main/main_style.css">
     <link type="text/css" rel="stylesheet" href="../css/main/main_nav.css">
-    <link type="text/css" rel="stylesheet" href="../css/sub/user_profile_style.css">
+    <link type="text/css" rel="stylesheet" href="../css/sub/user_profile_change_style.css">
     <script src='../script/jquery.js'></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="../resource/favicon/apple-icon-57x57.png">
@@ -27,20 +28,24 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
-  <%
+     <%
+     
     int id = 0;
 	if(request.getParameter("id") != null){
 		id = Integer.parseInt(request.getParameter("id"));
 	}
 	
+	String type = request.getParameter("type");
+	
 	// userID 확인;
 	String user = (String)session.getAttribute("userID");
 	// userName 확인;
 	String userName = (String)session.getAttribute("userName");
+	// Auth 확인;
+	String Auth = (String)session.getAttribute("userAuth");
 	// UserRow;
 	String userRow = (String)session.getAttribute("userRow");
-	// UserAuth;
-	String Auth = (String)session.getAttribute("userAuth");
+	int userRowInt = Integer.valueOf(userRow);
 	
 	if(id == 0){
 		PrintWriter script = response.getWriter();
@@ -50,14 +55,28 @@
 		script.println("</script>");
 	}
 	
+	if(Auth.equals("staff")){
+		
+	} else if(id != userRowInt){
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('유효하지 않은 프로필 입니다.')");
+		script.println("location.href='../index.jsp'");
+		script.println("</script>");
+	} else {
+		
+	}
+	
 	String gender = "";
 	String auth = "";
 	String name = "";
 	
 	UserDTO userdto = new UserDAO().getUser(id);
+	
 	gender = userdto.getUserGender();
 	auth = userdto.getUserAuth();
 	name = userdto.getUserName();
+	
 	
 	// 성별정보 변환
 	if(gender.equals("F")){
@@ -71,59 +90,82 @@
 		auth = "교직원";
 	} else if(Auth.equals("student")){
 		auth = "학생";
-	} else {
-		
 	}
 	
   %>
-    <title><%= name %>님의 프로필</title>
+    <title><%= name %>님의 프로필 수정</title>
 </head>
 <body>
 
-	 <!-- topBar와 header -->
+     <!-- topBar와 header -->
     <jsp:include page="/components/topbarAction.jsp"></jsp:include>
+
 
     <section class="notice_table">
             <h2>환영합니다</h2>
-            <ul>
-                <li class="font_head">
-                    <span>이름</span>
-                    <span><%= name %></span>
-                </li>
-                <li class="font_head">
-                    <span>아이디</span>
-                    <span><%= userdto.getUserID() %></span>
-                </li>
-                <li class="notice_writer">
-                    <span>이메일</span>
-                    <span><%= userdto.getUserEmail() %></span>
-                </li>
-                <li class="notice_writer">
-                    <span>성별</span>
-                    <span><%= gender %></span>
-                </li>
-                <li class="notice_readme">
-                    <span>구분</span>
-                    <span><%= auth %></span>
-                </li>
-                <!-- <li class="notice_content">
-                    <img src="./">
-                </li> -->
-            </ul>
-            <div class="write_notice">
-                <a href="user_profile_update.jsp?id=<%= userdto.getUserRow() %>">수정</a>
-            </div>
-            <div class="write_notice">
-            	<%if(Auth.equals("student")){%>
-                <a href="../web_control.jsp?action=pro-delete&userRow=<%= userRow %>&type=student">삭제</a>
-                <% } else if(Auth.equals("staff")) {%>
-                <a href="../web_control.jsp?action=pro-delete&userRow=<%= userRow %>&type=staff">삭제</a>
-                <%} %>
-            </div>
+            <form method="POST" action="../web_control.jsp" class="userForm">
+            <input type="hidden" name="action" value="user-update">
+            <input type="hidden" name="userRow" value="<%= id %>">
+                <ul>
+                    <li class="font_head">
+                        <span>이름</span>
+                        <span><input type="text" name="userName" value="<%= name %>"></span>
+                    </li>
+                    <li class="font_head">
+                        <span>아이디</span>
+                        <span><input type="text" name="userID" value="<%= userdto.getUserID() %>"></span>
+                    </li>
+                    <li class="font_head">
+                        <span>비밀번호</span>
+                        <span><input type="password" name="userPassword" value="<%= userdto.getUserPassword()%>" style="font-family: sans-serif;"></span>
+                    </li>
+                    <li class="notice_writer">
+                        <span>이메일</span>
+                        <span><input type="text" name="userEmail" value="<%= userdto.getUserEmail() %>"></span>
+                    </li>
+                    <li class="notice_writer">
+                        <span>성별</span>
+                        <span>
+                            <select class="sel" name="userGender">
+                            	<% if(gender.equals("남자")) { %>
+                                <option value="M" selected>남자</option>
+                                <option value="F">여자</option>
+                                <%}else if(gender.equals("여자")) {%>
+                                <option value="M">남자</option>
+                                <option value="F" selected>여자</option>
+                                <%} else { %>
+                                <option value="M">남자</option>
+                                <option value="F">여자</option>
+                                <% }%>
+                            </select>
+                        </span>
+                    </li>
+					<% if(Auth == null) {%>
+                   
+                    <% } else if(Auth.equals("staff")) {  %>
+                     <li class="notice_readme">
+                        <span>구분</span>
+                        <span>
+                            <select class="sel" name="userAuth">
+                            	<% if(auth.equals("학생")) { %>
+                                <option value="student" selected>학생</option>
+                                <option value="staff">교직원</option>
+                                <% } else if(auth.equals("교직원")) {%>
+                                <option value="student">학생</option>
+                                <option value="staff" selected>교직원</option>
+                                <% } else { } %>
+                            </select>  
+                        </span>
+                    </li>
+                    <% } else if(Auth.equals("student")) { } %>
+                </ul>
+                <div class="write_notice">
+                    <input type="submit" value="수정">
+                </div>
+            </form>
     </section>
-
-
-	<jsp:include page="/components/footer.jsp"></jsp:include>
+    
+    <jsp:include page="/components/footer.jsp"></jsp:include>
     <script>
         $('body > header > nav > a:nth-child(1)').hover(function() {
             $('#dropdownNav1').fadeIn(200);

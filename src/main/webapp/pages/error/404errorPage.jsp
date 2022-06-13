@@ -32,7 +32,7 @@
             <h2>Error 404 Not Found</h2>
             <p>길을 잃으셨군요!<br>찾으시는 길은 이쪽이 아니니 나가주시길 바라겠습니다.</p>
             <div class="bg_img">
-                <a href="${pageContext.request.contextPath}/index.jsp"><img src="../resource/img/header_logo.png"></a>
+                <a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/resource/img/header_logo.png"></a>
             </div>
         </div>
     </div>

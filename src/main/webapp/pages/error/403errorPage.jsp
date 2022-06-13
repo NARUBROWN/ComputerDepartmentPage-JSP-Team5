@@ -32,7 +32,7 @@
             <h2>Error 403 Forbidden</h2>
             <p>요청하신 페이지 접근이 거부되었습니다.<br>입력하신 페이지의 주소가 정확한지 다시 한번 확인해주시기 바랍니다.</p>
             <div class="bg_img">
-                <a href="${pageContext.request.contextPath}/index.jsp"><img src="../resource/img/header_logo.png"></a>
+                <a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/resource/img/header_logo.png"></a>
             </div>
         </div>
     </div>

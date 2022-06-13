@@ -104,18 +104,45 @@ public class UserDAO {
 		return userName;
 	}
 	
-	// 유저정보 업데이트
-	public boolean updateUser(UserDTO userdto) {
-		String sql = "UPDATE user SET userID = ?, userPassword = ? userName = ? userEmail = ? userGender = ? WHERE userRow = ?";
+	// 아이디 가져오기
+	public String getID(String userID) {
+
+		String sql = "SELECT userRow FROM USER WHERE userID = ?";
+		String userRow ="none";
+		
 		try {
 			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				userRow = rs.getString(1);
+				return userRow;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		return userRow;
+	}
+	
+	// 유저정보 업데이트
+	public boolean updateUser(UserDTO userdto) {
+		String sql = "UPDATE user SET userID = ?, userPassword = ?, userName = ?, userEmail = ?, userGender = ?,  userAuth = ? WHERE userRow = ?";
+		try {
+			conn = JDBCUtil.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userdto.getUserID());
 			pstmt.setString(2, userdto.getUserPassword());
-			pstmt.setString(3, userdto.getUserEmail());
-			pstmt.setString(4, userdto.getUserGender());
-			pstmt.setInt(5, userdto.getUserRow());
+			pstmt.setString(3, userdto.getUserName());
+			pstmt.setString(4, userdto.getUserEmail());
+			pstmt.setString(5, userdto.getUserGender());
+			pstmt.setString(6, userdto.getUserAuth());
+			pstmt.setInt(7, userdto.getUserRow());
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -126,8 +153,8 @@ public class UserDAO {
 	}
 	
 	// 유저 정보 삭제
-	public boolean deleteCommunity(int userRow) {
-		String sql = "delete from user where _id=?";
+	public boolean deleteUser(int userRow) {
+		String sql = "delete from user where userRow = ?";
 		try {
 			conn = JDBCUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -215,4 +242,32 @@ public class UserDAO {
 		
 		return false; 
 	}
+	
+	// 프로필 게시글 가져오기
+	public UserDTO getUser(int userRow) {
+		String sql = "select * from user where userRow = ?";
+		try { 
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				UserDTO userdto = new UserDTO();
+				userdto.setUserRow(rs.getInt(1));
+				userdto.setUserID(rs.getString(2));
+				userdto.setUserPassword(rs.getString(3));
+				userdto.setUserName(rs.getString(4));
+				userdto.setUserEmail(rs.getString(5));
+				userdto.setUserGender(rs.getString(6));
+				userdto.setUserAuth(rs.getString(7));
+				return userdto;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		return null; 
+	}
+	
 }

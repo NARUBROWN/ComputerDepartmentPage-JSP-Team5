@@ -33,8 +33,9 @@
 			id = Integer.parseInt(request.getParameter("id"));
 		}
 		
-		// userID 확인;
-		String user = (String)session.getAttribute("userID");
+		// userName 확인;
+		String user = (String)session.getAttribute("userName");
+
 		
 		if(id == 0){
 			PrintWriter script = response.getWriter();
@@ -79,7 +80,7 @@
 			type = "&type=community";
 			typeName = "community";
 		}
-	
+		
 	%>
 	
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
