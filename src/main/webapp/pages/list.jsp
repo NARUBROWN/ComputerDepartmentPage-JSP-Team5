@@ -5,6 +5,7 @@
     <%@ page import="community.*" %>
     <%@ page import="admin.*" %>
     <%@ page import="java.util.ArrayList" %>
+    <%@ page import="java.util.List" %>
     <%@ page import="java.sql.ResultSet" %>
     <%@ page import="java.io.PrintWriter" %>
     
@@ -34,8 +35,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
     
+    
     	<%
-	
+    	
 		// 세션에서 userID 가져오는코드
 		String user = (String) session.getAttribute("userID");
 	
@@ -45,6 +47,7 @@
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
 		
+	
 		// session에서 Auth를 가져오기
 		String Auth = (String) session.getAttribute("userAuth");
 		
@@ -80,7 +83,36 @@
 				script.println("history.back()"); // 전으로 돌리는 스크립트
 				script.println("</script>");
 			}
-		}
+		} 
+		
+		int currentPage = pageNumber;
+    	
+    	int startRow = (currentPage - 1) * pageNumber + 1;
+    	int endRow = currentPage * pageNumber;
+
+    	int count = 0;
+    	noticeDAO manager_no = noticeDAO.getInstance();
+    	communityDAO manager_co = communityDAO.getInstance();
+    	UserDAO manager_us = UserDAO.getInstance();
+    	count = manager_no.getCount();
+    	count = manager_co.getCount();// 데이터베이스에 저장된 총 갯수
+    	count = manager_us.getCount();
+    	
+    	List<noticeDTO> list_no = null;
+    	if (count > 0) {
+    		// getList()메서드 호출 / 해당 레코드 반환
+    		list_no = manager_no.getList(startRow, endRow);
+    	}
+    	List<communityDTO> list_co = null;
+    	if (count > 0) {
+    		// getList()메서드 호출 / 해당 레코드 반환
+    		list_co = manager_co.getList(startRow, endRow);
+    	}
+    	List<UserDTO> list_us = null;
+    	if (count > 0) {
+    		// getList()메서드 호출 / 해당 레코드 반환
+    		list_us = manager_us.getList(startRow, endRow);
+    	}
 		
 		
 	%>
@@ -94,7 +126,7 @@
     <section class="notice_table">
 
         <h2><%= contentTypeName %></h2>
-            <%	
+       <%	
          	// notice가 파라미터로 넘어왔을 경우
             if(contentType.equals("no")){ 
             	noticeDAO maintitle = new noticeDAO();
@@ -112,27 +144,53 @@
             %>
             <li>
                 <span><%=title_lists.get(i).getNo_id()%></span>
-                <span class="title_hover"><a href="view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></span>
+                <span><a href="view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></span>
                 <span><%=title_lists.get(i).getNo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getNo_author()%></span>
             </li>	
             <% } %>
          	   </ul>
-         	   
+         	   <div class="numCheck">
          	   <!-- 공지사항 이전, 다음 페이지 -->
-         		<div class="numCheck">
-         			<%
-				if(pageNumber != 1) {
-					
+         		<%	// 페이징  처리
+						if(count > 0){
+							// 총 페이지의 수
+							int pageCount = count / pageNumber + (count%pageNumber == 0 ? 0 : 1);
+							// 한 페이지에 보여줄 페이지 블럭(링크) 수
+							int pageBlock = 10;
+							// 한 페이지에 보여줄 시작 및 끝 번호(예 : 1, 2, 3 ~ 10 / 11, 12, 13 ~ 20)
+							int startPage = ((currentPage-1)/pageBlock)*pageBlock+1;
+							int endPage = startPage + pageBlock - 1;
+							
+							// 마지막 페이지가 총 페이지 수 보다 크면 endPage를 pageCount로 할당
+							if(endPage > pageCount){
+								endPage = pageCount;
+							}
+							
+							if(startPage > pageBlock){ // 페이지 블록수보다 startPage가 클경우 이전 링크 생성
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=notice">이전</a>
-					<%
-				} if(maintitle.nextPage(pageNumber + 1)) {
-					
+								<a href="list.jsp?pageNumber=<%=startPage - 10%>&type=notice">[이전]</a>	
+					<%			
+							}
+							
+							for(int i=startPage; i <= endPage; i++){ // 페이지 블록 번호
+								if(i == currentPage){ // 현재 페이지에는 링크를 설정하지 않음
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=notice">다음</a>
-					<%
-				}
+									[<%=i %>]
+					<%									
+								}else{ // 현재 페이지가 아닌 경우 링크 설정
+					%>
+									<a href="list.jsp?pageNumber=<%=i%>&type=notice">[<%=i %>]</a>
+					<%	
+								}
+							} // for end
+							
+							if(endPage < pageCount){ // 현재 블록의 마지막 페이지보다 페이지 전체 블록수가 클경우 다음 링크 생성
+					%>
+								<a href="list.jsp?pageNumber=<%=startPage + 10 %>&type=notice">[다음]</a>
+					<%			
+							}
+						}
 					%>
         	</div>
         	
@@ -154,7 +212,7 @@
           
             <li>
                 <span><%=title_lists.get(i).getCo_id()%></span>
-                <span class="title_hover"><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
+                <span><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
                 <span><%=title_lists.get(i).getCo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getCo_author()%></span>
             </li>
@@ -164,19 +222,47 @@
            			
            		<!-- 커뮤니티 이전, 다음 페이지 -->
          		<div class="numCheck">
-         			<%
-				if(pageNumber != 1) {
-					
+         			<%	// 페이징  처리
+						if(count > 0){
+							// 총 페이지의 수
+							int pageCount = count / pageNumber + (count%pageNumber == 0 ? 0 : 1);
+							// 한 페이지에 보여줄 페이지 블럭(링크) 수
+							int pageBlock = 10;
+							// 한 페이지에 보여줄 시작 및 끝 번호(예 : 1, 2, 3 ~ 10 / 11, 12, 13 ~ 20)
+							int startPage = ((currentPage-1)/pageBlock)*pageBlock+1;
+							int endPage = startPage + pageBlock - 1;
+							
+							// 마지막 페이지가 총 페이지 수 보다 크면 endPage를 pageCount로 할당
+							if(endPage > pageCount){
+								endPage = pageCount;
+							}
+							
+							if(startPage > pageBlock){ // 페이지 블록수보다 startPage가 클경우 이전 링크 생성
 					%>
-				<a href="list.jsp?pageNumber=<%= pageNumber - 1%>&type=community">이전</a>
-					<%
-				} if(maintitle.nextPage(pageNumber + 1)) {
-					
+								<a href="list.jsp?pageNumber=<%=startPage - 10%>&type=community">[이전]</a>	
+					<%			
+							}
+							
+							for(int i=startPage; i <= endPage; i++){ // 페이지 블록 번호
+								if(i == currentPage){ // 현재 페이지에는 링크를 설정하지 않음
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=community">다음 ></a>
-					<%
-				}
+									[<%=i %>]
+					<%									
+								}else{ // 현재 페이지가 아닌 경우 링크 설정
 					%>
+									<a href="list.jsp?pageNumber=<%=i%>&type=community">[<%=i %>]</a>
+					<%	
+								}
+							} // for end
+							
+							if(endPage < pageCount){ // 현재 블록의 마지막 페이지보다 페이지 전체 블록수가 클경우 다음 링크 생성
+					%>
+								<a href="list.jsp?pageNumber=<%=startPage + 10 %>&type=community">[다음]</a>
+					<%			
+							}
+						}
+					%>
+
         	</div>
            			<% 
 			// 멤버일 경우
@@ -195,7 +281,7 @@
            	
 			<li>
                 <span><%= title_lists.get(i).getUserRow() %></span>
-                <span class="title_hover"><a href="user_profile.jsp?id=<%= title_lists.get(i).getUserRow()%>"><%= title_lists.get(i).getUserID() %></a></span>
+                <span><a href="user_profile.jsp?id=<%= title_lists.get(i).getUserRow()%>"><%= title_lists.get(i).getUserID() %></a></span>
                 <span><%= title_lists.get(i).getUserName() %></span>
                 <span><%= title_lists.get(i).getUserAuth() %></span>
             </li>
@@ -204,18 +290,45 @@
                   </ul>
                 <!-- 공지사항 이전, 다음 페이지 -->
          		<div class="numCheck">
-         			<%
-				if(pageNumber != 1) {
-					
+         			<%	// 페이징  처리
+						if(count > 0){
+							// 총 페이지의 수
+							int pageCount = count / pageNumber + (count%pageNumber == 0 ? 0 : 1);
+							// 한 페이지에 보여줄 페이지 블럭(링크) 수
+							int pageBlock = 10;
+							// 한 페이지에 보여줄 시작 및 끝 번호(예 : 1, 2, 3 ~ 10 / 11, 12, 13 ~ 20)
+							int startPage = ((currentPage-1)/pageBlock)*pageBlock+1;
+							int endPage = startPage + pageBlock - 1;
+							
+							// 마지막 페이지가 총 페이지 수 보다 크면 endPage를 pageCount로 할당
+							if(endPage > pageCount){
+								endPage = pageCount;
+							}
+							
+							if(startPage > pageBlock){ // 페이지 블록수보다 startPage가 클경우 이전 링크 생성
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=member">이전</a>
-					<%
-				} if(userdao.nextPage(pageNumber + 1)) {
-					
+								<a href="list.jsp?pageNumber=<%=startPage - 10%>&type=member">[이전]</a>	
+					<%			
+							}
+							
+							for(int i=startPage; i <= endPage; i++){ // 페이지 블록 번호
+								if(i == currentPage){ // 현재 페이지에는 링크를 설정하지 않음
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=member">다음</a>
-					<%
-				}
+									[<%=i %>]
+					<%									
+								}else{ // 현재 페이지가 아닌 경우 링크 설정
+					%>
+									<a href="list.jsp?pageNumber=<%=i%>&type=member">[<%=i %>]</a>
+					<%	
+								}
+							} // for end
+							
+							if(endPage < pageCount){ // 현재 블록의 마지막 페이지보다 페이지 전체 블록수가 클경우 다음 링크 생성
+					%>
+								<a href="list.jsp?pageNumber=<%=startPage + 10 %>&type=member">[다음]</a>
+					<%			
+							}
+						}
 					%>
         	</div>
                   
@@ -226,6 +339,7 @@
         if(contentType.equals("no")){ 
         	// Auth가 staff면 글 쓰기 버튼을 보여줌
 			if(Auth == null){ %>
+        		
         	<% } else if(Auth.equals("staff")) { %>
         		<div class="write_notice">
             		<a href="form.jsp?type=notice">글쓰기</a>
@@ -243,12 +357,12 @@
         	<% }
         	//type이 mem일 경우
         } else if(contentType.equals("mem")) { %>
-        		<div class="add_notice">
+        		<div class="write_notice">
             		<a href="sign_up.jsp?type=new">회원 추가</a>
         		</div>
         	<% } else { %>
         		
-        	<%} %>
+        	<%} %>  
     </section>
 
 <jsp:include page="/components/footer.jsp"></jsp:include>
