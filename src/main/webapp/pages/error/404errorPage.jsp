@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isErrorPage = "true" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@
                 <h1>404</h1>
             </div>
             <h2>Error 404 Not Found</h2>
-            <p>길을 잃으셨군요!<br>찾으시는 길은 이쪽이 아니니 나가주시길 바라겠습니다.</p>
+            <p>길을 잃으셨군요!<br>입력하신 페이지의 주소가 정확한지 다시 한번 확인해주시기 바랍니다.</p>
             <div class="bg_img">
                 <a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/resource/img/header_logo.png"></a>
             </div>

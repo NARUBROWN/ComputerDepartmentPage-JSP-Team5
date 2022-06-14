@@ -33,6 +33,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
+
     <title>인천재능대학교 컴퓨터정보과 관리자 페이지</title>
 </head>
 <body>

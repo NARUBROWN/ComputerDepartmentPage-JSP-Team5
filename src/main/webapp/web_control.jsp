@@ -22,6 +22,16 @@
 <% 
 	// action 파라미터 처리
 	String action = request.getParameter("action");
+
+	// 파라미터가 안 넘어오면
+	if(action == null){
+		action = "none";
+		// 해당하는 액션이 없을 경우
+		// 403 페이지로 이동
+		response.sendRedirect("pages/error/403errorPage.jsp");
+	} else {
+		action = request.getParameter("action");
+	}
 	
 	// 회원가입
 	if(action.equals("signup")) {
@@ -107,8 +117,8 @@
 			// 처리가 완료되면 메인화면으로 다시 변경
 			response.sendRedirect("pages/list.jsp?type=notice");
 		} else {
-			// 403 오류로 보내야함
-			throw new Exception("DB입력 오류");
+			// 403 오류
+			response.sendRedirect("pages/error/403errorPage.jsp");
 		}
 	}
 	
@@ -119,7 +129,8 @@
 			// 처리가 완료되면 메인화면으로 다시 변경
 			response.sendRedirect("pages/list.jsp?type=community");
 		} else {
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 	}
 	
@@ -148,7 +159,7 @@
 				String userAuth = user.getAuth(userDTO.getUserID());
 				// getName로 String 이름 리턴 받아서 userName으로 대입
 				String userName = user.getName(userDTO.getUserID());
-				// getID로 String 이름 리턴 받아서 userName으로 대입
+				// getID로 String 이름 리턴 받아서 userRow으로 대입
 				String userRow = user.getID(userDTO.getUserID());
 				
 				// setAttribute userAuth
@@ -181,11 +192,8 @@
 			script.println("</script>");
 			}
 			else if (result == -2) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('데이터 베이스 오류.')");
-			script.println("history.back()"); // 전으로 돌리는 스크립트
-			script.println("</script>");
+				// 500 페이지로 이동
+				response.sendRedirect("pages/error/500errorPage.jsp");
 			}
 	}
 	
@@ -202,7 +210,8 @@
 			// 처리가 완료되면 쓰던 페이지로 다시 변경
 			response.sendRedirect("pages/view_content.jsp?id=" + noticeDTO.getNo_id()+ "&type=notice");
 		} else {
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 	} 
 	
@@ -211,16 +220,25 @@
 		if(community.updateCommunity(communityDTO)){
 			response.sendRedirect("pages/view_content.jsp?id=" + communityDTO.getCo_id()+ "&type=community");
 		} else {
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 	}
 	
 	// user 정보 수정
 	else if(action.equals("user-update")){
 		if(user.updateUser(userDTO)){
+			
+			// getName로 String 이름 리턴 받아서 userName으로 대입
+			String userName = user.getName(userDTO.getUserID());
+			
+			// setAttribute userName
+			session.setAttribute("userName", userName);
+			
 			response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());
 		} else {
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 	
 	// notice DB 정보 삭제
@@ -230,7 +248,8 @@
 		if(notice.deleteNotice(no_id)){
 			response.sendRedirect("pages/list.jsp?type=notice");
 		} else { 
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 	 
 	
@@ -243,18 +262,29 @@
 		if(authType.equals("student")){
 			if(user.deleteUser(userRowInt)){
 				session.invalidate();
-				response.sendRedirect("index.jsp");
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('계정이 성공적으로 제거되었습니다.')");
+				script.println("location.href = 'index.jsp'");
+				script.println("</script>");
 			} else { 
-				throw new Exception("DB입력 오류");
+				// 500 페이지로 이동
+				response.sendRedirect("pages/error/500errorPage.jsp");
 			}
 		}else if(authType.equals("staff")){
 			if(user.deleteUser(userRowInt)){
-				response.sendRedirect("pages/list.jsp?type=member");
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('계정이 성공적으로 제거되었습니다.')");
+				script.println("location.href = 'pages/list.jsp?type=member'");
+				script.println("</script>");
 			} else { 
-				throw new Exception("DB입력 오류");
+				// 500 페이지로 이동
+				response.sendRedirect("pages/error/500errorPage.jsp");
 			}
 		}else{
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 		
 	 
@@ -266,19 +296,33 @@
 		if(community.deleteCommunity(co_id)){
 			response.sendRedirect("pages/list.jsp?type=community");
 		} else { 
-			throw new Exception("DB입력 오류");
+			// 500 페이지로 이동
+			response.sendRedirect("pages/error/500errorPage.jsp");
 		}
 	} 
 	
 	// adminPage 로 보내는 로직
 	else if(action.equals("adminPage")) {
 		// 유저권한 받아오기
-		String Auth = (String) session.getAttribute("userAuth");
+		
+		String Auth ="";
+		if(session.getAttribute("userAuth") != null){
+			Auth = (String)session.getAttribute("userAuth");
+		} else{
+			Auth = "none";
+		}
+		
 		if(Auth.equals("staff")) {
 		%><jsp:forward page="admin/admin_index.jsp"/><%
 		} else {
-			// 오류 페이지로 보내야 함
-			response.sendRedirect("index.jsp");
+		// 403 페이지로 이동
+		response.sendRedirect("pages/error/403errorPage.jsp");
 		}
+		
+		
+		
+		
 	}
+	
+	
 %>
