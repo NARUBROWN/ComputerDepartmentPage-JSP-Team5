@@ -225,8 +225,7 @@
        	// type이 no일 경우
         if(contentType.equals("no")){ 
         	// Auth가 staff면 글 쓰기 버튼을 보여줌
-			if(Auth == null|| Auth.equalsIgnoreCase("staff")){ %>
-        		
+			if(Auth == null){ %>
         	<% } else if(Auth.equals("staff")) { %>
         		<div class="write_notice">
             		<a href="form.jsp?type=notice">글쓰기</a>
