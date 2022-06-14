@@ -7,7 +7,7 @@ body{
     padding: 50px;
     margin: 60px auto;
     border-radius: 5px;
-    /* box-shadow: 2px 2px 8px #8e8e8e; */
+    background: #FFFFFF;
 }
 .notice_table > h2{
     margin: 0 auto;
@@ -33,22 +33,11 @@ body{
     content: ''; display: block; visibility: hidden; clear: both;
 }
 .notice_table > ul li:first-child{
-    /* background: #eeebeb; */
     border-top: 2px solid #2F2F2F;
 }
 .notice_table > ul li{
     border-bottom: 0.5px solid lightgray;
 }
-/* .notice_table > ul li:nth-child(even):hover{
-    background-color: skyblue;
-} */
-/* .notice_table > ul li:nth-child(odd):not(:first-child){
-    background-color: lightgray;
-} */
-/* .notice_table > ul li:nth-child(odd):not(:first-child):hover{
-    background-color: lightyellow;
-} */
-
 .notice_table > ul li span{
     display: block; float: left; padding: 15px 2%; font-size: 14px;
     color: #2F2F2F;; text-transform: capitalize; box-sizing: border-box;
@@ -64,6 +53,11 @@ body{
 .notice_table > ul li span:nth-child(2){
     color: #2F2F2F;; width: 40%;
 }
+.notice_table > ul li .title_hover:hover{
+        transition : all 0.3s .1s;
+        background: #F0F0F0;
+        border-radius: 8px;
+}
 .notice_table > ul li span:nth-child(3){
     width: 20%;
     text-align: center;
@@ -77,10 +71,11 @@ body > .notice_table > .numCheck{
     position: relative; width: 50%; max-width: 400px; margin: 0 auto 15px; padding: 0 20px;
 }
 body > .notice_table > .numCheck a{
-    text-decoration: none; font-size: 12px; color: black; display: block; text-align: center;
+    text-decoration: none; font-size: 18px; color: black; display: block; text-align: center;
+    margin-top: 10px;
 }
 body > .notice_table > .numCheck > a{
-    position: absolute; line-height: 33px; top: 0;
+    position: absolute; line-height: 25px; top: 0;
 }
 body > .notice_table > .numCheck > a:first-of-type{
     left: 0;
@@ -105,8 +100,7 @@ body > .notice_table > .numCheck ol li a:hover{
     transition-duration: 0.5s;
 }
 .write_notice{
-    position: absolute;
-    margin-left: 63%;
+	float: right;
     width: 45px;
     background: #8e8e8e;
     color: #fff;
@@ -114,6 +108,22 @@ body > .notice_table > .numCheck ol li a:hover{
     border: 2px solid #8e8e8e;
 }
 .write_notice:hover{
+    background: whitesmoke;
+    color: #000;
+    transition: 0.5s;
+}
+.add_notice{
+	float: right;
+    width: 65px;
+    background: #8e8e8e;
+    color: #fff;
+    padding: 10px 23px;
+    border: 2px solid #8e8e8e;
+}
+.add_notice a{
+	margin: 0 auto;
+}
+.add_notice:hover{
     background: whitesmoke;
     color: #000;
     transition: 0.5s;

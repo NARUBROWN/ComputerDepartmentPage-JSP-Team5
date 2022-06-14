@@ -7,7 +7,6 @@ body{
     padding: 50px;
     margin: 60px auto;
     border-radius: 5px;
-    /* box-shadow: 2px 2px 8px #8e8e8e; */
 }
 .notice_table > h2{
     margin: 0 auto;
@@ -32,18 +31,6 @@ body{
 .notice_readme{
     font-weight: bold;
 }
-/* .notice_content{
-    text-align: center;
-    padding: 50px 0;
-} */
-/* .move_notice{
-    width: 30px;
-    float: right;
-    background: #8e8e8e;
-    color: #fff;
-    padding: 10px 33px;
-    border: 2px solid #8e8e8e;
-} */
 .write_notice{
     width: 30px;
     float: right;
@@ -52,11 +39,6 @@ body{
     margin-left: 1%;
     padding: 10px 33px;
     border: 2px solid #8e8e8e;
-}
-.move_notice:hover{
-    background: whitesmoke;
-    color: #000;
-    transition: 0.5s;
 }
 .write_notice:hover{
     background: whitesmoke;

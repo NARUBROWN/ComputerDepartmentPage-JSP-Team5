@@ -112,7 +112,7 @@
             %>
             <li>
                 <span><%=title_lists.get(i).getNo_id()%></span>
-                <span><a href="view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></span>
+                <span class="title_hover"><a href="view_content.jsp?id=<%=title_lists.get(i).getNo_id()%>&type=notice"><%=title_lists.get(i).getNo_title()%></a></span>
                 <span><%=title_lists.get(i).getNo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getNo_author()%></span>
             </li>	
@@ -154,7 +154,7 @@
           
             <li>
                 <span><%=title_lists.get(i).getCo_id()%></span>
-                <span><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
+                <span class="title_hover"><a href="view_content.jsp?id=<%=title_lists.get(i).getCo_id()%>&type=community"><%=title_lists.get(i).getCo_title()%></a></span>
                 <span><%=title_lists.get(i).getCo_date().replace("-", "/")%></span>
                 <span><%=title_lists.get(i).getCo_author()%></span>
             </li>
@@ -168,12 +168,12 @@
 				if(pageNumber != 1) {
 					
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=community">이전</a>
+				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=community">< 이전</a>
 					<%
 				} if(maintitle.nextPage(pageNumber + 1)) {
 					
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=community">다음</a>
+				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=community">다음 ></a>
 					<%
 				}
 					%>
@@ -195,7 +195,7 @@
            	
 			<li>
                 <span><%= title_lists.get(i).getUserRow() %></span>
-                <span><a href="user_profile.jsp?id=<%= title_lists.get(i).getUserRow()%>"><%= title_lists.get(i).getUserID() %></a></span>
+                <span class="title_hover"><a href="user_profile.jsp?id=<%= title_lists.get(i).getUserRow()%>"><%= title_lists.get(i).getUserID() %></a></span>
                 <span><%= title_lists.get(i).getUserName() %></span>
                 <span><%= title_lists.get(i).getUserAuth() %></span>
             </li>
@@ -244,7 +244,7 @@
         	<% }
         	//type이 mem일 경우
         } else if(contentType.equals("mem")) { %>
-        		<div class="write_notice">
+        		<div class="add_notice">
             		<a href="sign_up.jsp?type=new">회원 추가</a>
         		</div>
         	<% } else { %>

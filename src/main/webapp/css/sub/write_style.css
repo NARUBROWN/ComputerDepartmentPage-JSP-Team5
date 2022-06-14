@@ -7,7 +7,6 @@ body{
     padding: 50px;
     margin: 60px auto;
     border-radius: 5px;
-    /* box-shadow: 2px 2px 8px #8e8e8e; */
 }
 .notice_table > h2{
     margin: 0 auto;
@@ -30,7 +29,6 @@ body{
     content: ''; display: block; visibility: hidden; clear: both;
 }
 .notice_table > form > ul li:first-child{
-    /* background: #eeebeb; */
     border-top: 2px solid #2F2F2F;
 }
 .notice_table > form > ul li{
