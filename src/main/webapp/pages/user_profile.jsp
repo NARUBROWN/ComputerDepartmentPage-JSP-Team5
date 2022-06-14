@@ -29,8 +29,14 @@
     <meta charset="UTF-8">
   <%
     int id = 0;
+  	String myaccount = "";
+  	
 	if(request.getParameter("id") != null){
 		id = Integer.parseInt(request.getParameter("id"));
+	}
+	
+	if(request.getParameter("type") != null){
+		myaccount = "myaccount";
 	}
 	
 	// userID 확인;
@@ -54,6 +60,7 @@
 	String auth = "";
 	String name = "";
 	String intro = "";
+	String setParameter = "";
 	
 	UserDTO userdto = new UserDAO().getUser(id);
 	gender = userdto.getUserGender();
@@ -71,6 +78,9 @@
 	if(Auth.equals("staff")){
 		auth = "교직원";
 		intro = name + "님의 프로필 입니다.";
+		if(myaccount.equals("myaccount")){
+			setParameter = "&type=myaccount";
+		}
 	} else if(Auth.equals("student")){
 		auth = "학생";
 		intro = "환영합니다";
@@ -114,7 +124,7 @@
                 </li> -->
             </ul>
             <div class="write_notice">
-                <a href="user_profile_update.jsp?id=<%= userdto.getUserRow() %>">수정</a>
+                <a href="user_profile_update.jsp?id=<%= userdto.getUserRow() %><%= setParameter %>">수정</a>
             </div>
           
             <%if(Auth.equals("student")){%>
