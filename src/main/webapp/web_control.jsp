@@ -228,24 +228,55 @@
 	// user 정보 수정
 	else if(action.equals("user-update")){
 		if(user.updateUser(userDTO)){
+			  	String myaccount = "";
+				
+				if(request.getParameter("type") != null){
+					myaccount = "myaccount";
+				}
+				
 			
-			// getAuth로 String 권한 리턴 받아서 userAuth로 대입
-			String userAuth = user.getAuth(userDTO.getUserID());
-			// getName로 String 이름 리턴 받아서 userName으로 대입
-			String userName = user.getName(userDTO.getUserID());
-			// getID로 String 이름 리턴 받아서 userRow으로 대입
-			String userRow = user.getID(userDTO.getUserID());
+			// 현재 권한 가져오기
+			String Auth = (String) session.getAttribute("userAuth");
 			
-			// setAttribute userAuth
-			session.setAttribute("userAuth", userAuth);
-			// setAttribute userID
-			session.setAttribute("userID", userDTO.getUserID());
-			// setAttribute userName
-			session.setAttribute("userName", userName);
-			// setAttribute userRow
-			session.setAttribute("userRow", userRow);
-			
-			response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());
+			if(Auth.equals("student") || Auth == null){
+				// getAuth로 String 권한 리턴 받아서 userAuth로 대입
+				String userAuth = user.getAuth(userDTO.getUserID());
+				// getName로 String 이름 리턴 받아서 userName으로 대입
+				String userName = user.getName(userDTO.getUserID());
+				// getID로 String 이름 리턴 받아서 userRow으로 대입
+				String userRow = user.getID(userDTO.getUserID());
+				
+				// setAttribute userAuth
+				session.setAttribute("userAuth", userAuth);
+				// setAttribute userID
+				session.setAttribute("userID", userDTO.getUserID());
+				// setAttribute userName
+				session.setAttribute("userName", userName);
+				// setAttribute userRow
+				session.setAttribute("userRow", userRow);
+				response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());
+				
+			} else if(Auth.equals("staff") && myaccount.equals("myaccount")){
+				// getAuth로 String 권한 리턴 받아서 userAuth로 대입
+				String userAuth = user.getAuth(userDTO.getUserID());
+				// getName로 String 이름 리턴 받아서 userName으로 대입
+				String userName = user.getName(userDTO.getUserID());
+				// getID로 String 이름 리턴 받아서 userRow으로 대입
+				String userRow = user.getID(userDTO.getUserID());
+				
+				// setAttribute userAuth
+				session.setAttribute("userAuth", userAuth);
+				// setAttribute userID
+				session.setAttribute("userID", userDTO.getUserID());
+				// setAttribute userName
+				session.setAttribute("userName", userName);
+				// setAttribute userRow
+				session.setAttribute("userRow", userRow);
+				
+				response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());	
+			}	else if(Auth.equals("staff")){
+				response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());	
+			}
 		} else {
 			// 500 페이지로 이동
 			response.sendRedirect("pages/error/500errorPage.jsp");

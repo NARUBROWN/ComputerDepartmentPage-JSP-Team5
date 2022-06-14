@@ -29,11 +29,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
      <%
-     
     int id = 0;
-	if(request.getParameter("id") != null){
-		id = Integer.parseInt(request.getParameter("id"));
-	}
+   	String myaccount = "";
+   	
+ 	if(request.getParameter("id") != null){
+ 		id = Integer.parseInt(request.getParameter("id"));
+ 	}
+ 	
+ 	if(request.getParameter("type") != null){
+ 		myaccount = "myaccount";
+ 	}
 	
 	String type = request.getParameter("type");
 	
@@ -71,6 +76,7 @@
 	String auth = "";
 	String name = "";
 	String intro = "";
+	String setParameter = "";
 	
 	UserDTO userdto = new UserDAO().getUser(id);
 	
@@ -90,7 +96,9 @@
 	if(Auth.equals("staff")){
 		auth = "교직원";
 		intro = name + "님의 프로필 입니다.";
-		
+		if(myaccount.equals("myaccount")){
+			setParameter = "?type=myaccount";
+		}
 	} else if(Auth.equals("student")){
 		auth = "학생";
 		intro = "환영합니다";
@@ -107,7 +115,7 @@
 
     <section class="notice_table">
             <h2><%= intro %></h2>
-            <form method="POST" action="../web_control.jsp" class="userForm">
+            <form method="POST" action="../web_control.jsp<%= setParameter %>" class="userForm">
             <input type="hidden" name="action" value="user-update">
             <input type="hidden" name="userRow" value="<%= id %>">
                 <ul>
