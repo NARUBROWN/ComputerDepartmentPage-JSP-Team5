@@ -108,10 +108,10 @@
 	
 	// notice DB에 정보 입력
 	else if(action.equals("notice-insert")) {
-		//user 정보를 불러옴
-		String userID = (String)session.getAttribute("userID");
-		//ID가 admin이면 조건 통과
-		if(userID.equals("admin")) {
+		// Auth 로 현재 권한 가져오기
+		String Auth = (String) session.getAttribute("userAuth");
+		//권한이 Staff면 조건 통과
+		if(Auth.equals("staff")) {
 			// form에서 notice-insert를 보낼경우 DAO에 있는 method를 호출하여 DB처리
 			notice.insertDB(noticeDTO);
 			// 처리가 완료되면 메인화면으로 다시 변경
@@ -229,11 +229,21 @@
 	else if(action.equals("user-update")){
 		if(user.updateUser(userDTO)){
 			
+			// getAuth로 String 권한 리턴 받아서 userAuth로 대입
+			String userAuth = user.getAuth(userDTO.getUserID());
 			// getName로 String 이름 리턴 받아서 userName으로 대입
 			String userName = user.getName(userDTO.getUserID());
+			// getID로 String 이름 리턴 받아서 userRow으로 대입
+			String userRow = user.getID(userDTO.getUserID());
 			
+			// setAttribute userAuth
+			session.setAttribute("userAuth", userAuth);
+			// setAttribute userID
+			session.setAttribute("userID", userDTO.getUserID());
 			// setAttribute userName
 			session.setAttribute("userName", userName);
+			// setAttribute userRow
+			session.setAttribute("userRow", userRow);
 			
 			response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());
 		} else {
