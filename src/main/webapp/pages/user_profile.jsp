@@ -53,6 +53,7 @@
 	String gender = "";
 	String auth = "";
 	String name = "";
+	String intro = "";
 	
 	UserDTO userdto = new UserDAO().getUser(id);
 	gender = userdto.getUserGender();
@@ -69,8 +70,10 @@
 	// 권한정보 변환
 	if(Auth.equals("staff")){
 		auth = "교직원";
+		intro = name + "님의 프로필 입니다.";
 	} else if(Auth.equals("student")){
 		auth = "학생";
+		intro = "환영합니다";
 	} else {
 		
 	}
@@ -84,7 +87,7 @@
     <jsp:include page="/components/topbarAction.jsp"></jsp:include>
 
     <section class="notice_table">
-            <h2>환영합니다</h2>
+            <h2><%= intro %></h2>
             <ul>
                 <li class="font_head">
                     <span>이름</span>
@@ -113,13 +116,20 @@
             <div class="write_notice">
                 <a href="user_profile_update.jsp?id=<%= userdto.getUserRow() %>">수정</a>
             </div>
+          
+            <%if(Auth.equals("student")){%>
             <div class="write_notice">
-            	<%if(Auth.equals("student")){%>
                 <a href="../web_control.jsp?action=pro-delete&userRow=<%= userRow %>&type=student">삭제</a>
-                <% } else if(Auth.equals("staff")) {%>
-                <a href="../web_control.jsp?action=pro-delete&userRow=<%= userRow %>&type=staff">삭제</a>
-                <%} %>
             </div>
+            <% } else if(Auth.equals("staff")) {%>
+           	<div class="write_notice">
+                <a href="list.jsp?type=member">목록</a>
+             </div>
+           	 <div class="write_notice">
+               	<a href="../web_control.jsp?action=pro-delete&userRow=<%= userRow %>&type=staff">삭제</a>
+             </div>
+             <%} %>
+            
     </section>
 
 

@@ -168,7 +168,7 @@
 				if(pageNumber != 1) {
 					
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber - 1%>&type=community">< 이전</a>
+				<a href="list.jsp?pageNumber=<%= pageNumber - 1%>&type=community">이전</a>
 					<%
 				} if(maintitle.nextPage(pageNumber + 1)) {
 					

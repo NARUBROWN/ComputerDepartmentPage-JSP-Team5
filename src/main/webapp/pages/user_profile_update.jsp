@@ -70,6 +70,7 @@
 	String gender = "";
 	String auth = "";
 	String name = "";
+	String intro = "";
 	
 	UserDTO userdto = new UserDAO().getUser(id);
 	
@@ -88,12 +89,15 @@
 	// 권한정보 변환
 	if(Auth.equals("staff")){
 		auth = "교직원";
+		intro = name + "님의 프로필 입니다.";
+		
 	} else if(Auth.equals("student")){
 		auth = "학생";
+		intro = "환영합니다";
 	}
 	
   %>
-    <title><%= name %>님의 프로필 수정</title>
+    <title><%= name %> 님의 프로필 수정</title>
 </head>
 <body>
 
@@ -102,7 +106,7 @@
 
 
     <section class="notice_table">
-            <h2>환영합니다</h2>
+            <h2><%= intro %></h2>
             <form method="POST" action="../web_control.jsp" class="userForm">
             <input type="hidden" name="action" value="user-update">
             <input type="hidden" name="userRow" value="<%= id %>">
@@ -140,9 +144,7 @@
                             </select>
                         </span>
                     </li>
-					<% if(Auth == null) {%>
-                   
-                    <% } else if(Auth.equals("staff")) {  %>
+					<% if(Auth.equals("staff")) {  %>
                      <li class="notice_readme">
                         <span>구분</span>
                         <span>
@@ -157,8 +159,10 @@
                             </select>  
                         </span>
                     </li>
-                    <% } else if(Auth.equals("student")) { } %>
-                </ul>
+                    </ul>
+                    <% } else if(Auth.equals("student")) {%>
+                    <input type="hidden" name="userAuth" value="student">
+                    <% } %>
                 <div class="write_notice">
                     <input type="submit" value="수정">
                 </div>

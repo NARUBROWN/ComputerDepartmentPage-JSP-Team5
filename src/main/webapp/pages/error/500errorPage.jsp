@@ -21,16 +21,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../resource/favicon/favicon-16x16.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
-    <title>403 Forbidden</title>
+    <title>500 Internal Server Error</title>
 </head>
 <body>
     <div class="notfound">
         <div class="content">
             <div class="error_content">
-                <h1>403</h1>
+                <h1>500</h1>
             </div>
-            <h2>Error 403 Forbidden</h2>
-            <p>요청하신 페이지 접근이 거부되었습니다.</p>
+            <h2>500 Internal Server Error</h2>
+            <p>서버에 문제가 있습니다.<br>잠시 후 다시 접속해주시기 바랍니다.</p>
             <div class="bg_img">
                 <a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/resource/img/header_logo.png"></a>
             </div>
