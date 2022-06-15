@@ -285,8 +285,8 @@
 	
 	// notice DB 정보 삭제
 	}else if(action.equals("no-delete")) {
-		String no_con_id = request.getParameter("id");
-		int no_id = Integer.parseInt(no_con_id);
+		String num_con_id = request.getParameter("id");
+		int no_id = Integer.parseInt(num_con_id);
 		if(notice.deleteNotice(no_id)){
 			response.sendRedirect("pages/list.jsp?type=notice");
 		} else { 
