@@ -11,6 +11,46 @@
 Backend | 김태완 | 게시판 DAO 게시판 이전, 다음 메소드 구현
 Frontend | 최은성 | 메인페이지 및 서브페이지 디자인 및 디자인 제작 보조
 
+## DB 및 Table 생성문
+⚠️ 본  프로젝트 구동 전 설정되어 있어야 합니다. 
+```
+CREATE DATABASE `jspteam5` 
+DEFAULT CHARACTER SET utf8mb3;
+
+CREATE TABLE `community` (
+  `co_id` int NOT NULL AUTO_INCREMENT,
+  `co_title` varchar(50) NOT NULL,
+  `co_date` varchar(50) NOT NULL,
+  `co_author` varchar(15) NOT NULL,
+  `co_content` varchar(2048) DEFAULT NULL,
+  PRIMARY KEY (`co_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE `notice` (
+  `no_id` int NOT NULL AUTO_INCREMENT,
+  `no_title` varchar(50) NOT NULL,
+  `no_date` varchar(50) NOT NULL,
+  `no_author` varchar(15) NOT NULL,
+  `no_content` varchar(2048) DEFAULT NULL,
+  PRIMARY KEY (`no_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE `user` (
+  `userRow` int NOT NULL AUTO_INCREMENT,
+  `userID` varchar(20) NOT NULL,
+  `userPassword` varchar(20) NOT NULL,
+  `userName` varchar(20) NOT NULL,
+  `userEmail` varchar(50) DEFAULT NULL,
+  `userGender` varchar(20) DEFAULT NULL,
+  `userAuth` varchar(20) NOT NULL,
+  PRIMARY KEY (`userRow`),
+  UNIQUE KEY `userID` (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
+
+INSERT INTO `user` VALUES (1,'admin','1234','관리자','admin@jeiu.ac.kr','M','staff');
+
+```
+
 
 <h3>주요기능</h3>
 
