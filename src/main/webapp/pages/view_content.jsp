@@ -35,6 +35,10 @@
 		
 		// userName 확인;
 		String user = (String)session.getAttribute("userName");
+		
+		// userName 확인;
+		String Auth = (String)session.getAttribute("userAuth");
+
 
 		
 		if(id == 0){
@@ -79,6 +83,13 @@
 			query = "update.jsp?id=";
 			type = "&type=community";
 			typeName = "community";
+			if(Auth == null){
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('권한이 없습니다.')");
+				script.println("location.href='../index.jsp'");
+				script.println("</script>");
+			}
 		}
 		
 	%>
@@ -110,8 +121,6 @@
         </ul>
         
         <% 
-     		// 현재 권한 가져오기
-			String Auth = (String) session.getAttribute("userAuth");
         	
         	// type이 공지사항 경우
         	if(typeName.equals("notice")){

@@ -273,7 +273,7 @@
 				// setAttribute userRow
 				session.setAttribute("userRow", userRow);
 				
-				response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());	
+				response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow() + "&type=myaccount");	
 			}	else if(Auth.equals("staff")){
 				response.sendRedirect("pages/user_profile.jsp?id=" + userDTO.getUserRow());	
 			}
