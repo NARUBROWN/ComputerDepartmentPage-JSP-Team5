@@ -173,7 +173,7 @@
 				} if(maintitle.nextPage(pageNumber + 1)) {
 					
 					%>
-				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=community">다음 ></a>
+				<a href="list.jsp?pageNumber=<%=pageNumber + 1%>&type=community">다음</a>
 					<%
 				}
 					%>
