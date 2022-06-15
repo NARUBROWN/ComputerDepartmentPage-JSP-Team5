@@ -100,6 +100,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('중복된 ID 입니다.')");
+			script.println("history.back()");
 			script.println("</script>");
 			script.close();
 			return;
